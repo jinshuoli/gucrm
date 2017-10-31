@@ -135,7 +135,7 @@ export default {
         Channel: '',
         adviser: 'name',
         nameOrUser: '',
-        customer: 'number',
+        customer: '',
         CustomerNumber: '',
         isDiff: false,
         // 时间

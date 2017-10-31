@@ -8,18 +8,18 @@
     <el-table ref="multipleTable" v-loading="tableLoading" :data="respData" border tooltip-effect="dark" style="width: 100%">
       <el-table-column prop="name" label="员工">
       </el-table-column>
-      <el-table-column prop="" label="客户标识">
+      <el-table-column prop="code" label="客户标识">
       </el-table-column>
-      <el-table-column prop="otherms" label="客户号码">
+      <el-table-column prop="cutel" label="客户号码">
       </el-table-column>
-      <el-table-column prop="prtms" label="员工号码">
+      <el-table-column prop="tel" label="员工号码">
       </el-table-column>
-      <el-table-column label="发送时间">
+      <el-table-column prop="time_stamp" label="发送时间">
         <template scope="scope">
           {{scope.row.call_time.time | dateFormat}}
         </template>
       </el-table-column>
-      <el-table-column prop="content" :show-overflow-tooltip="true" label="内容">
+      <el-table-column prop="sms_content" :show-overflow-tooltip="true" label="内容">
       </el-table-column>
     </el-table>
     <br>
@@ -86,7 +86,7 @@ export default {
       require.ensure([], () => {　　　　　　　　
         const { export_json_to_excel } = require('@/vendor/Export2Excel');　　　　　　　　
         const tHeader = ["员工","客户标识","客户号码","员工号码","发送时间","内容"];　　　　　　　　
-        const filterVal = ["name","","otherms","prtms","time","content"];　　　　　　　　
+        const filterVal = ["name","code","cutel","tel","time_stamp","sms_content"];　　　　　　　　
         const data = this.formatJson(filterVal, this.respData);　　　　　　　　
         export_json_to_excel(tHeader, data, "回复记录");
       })　　　　

@@ -8,20 +8,20 @@
     <el-table ref="multipleTable" v-loading="tableLoading" :data="respData" border tooltip-effect="dark" style="width: 100%">
       <el-table-column prop="name" label="员工">
       </el-table-column>
-      <el-table-column prop="" label="客户标识">
+      <el-table-column prop="code" label="客户标识">
       </el-table-column>
-      <el-table-column prop="otherms" label="客户号码">
+      <el-table-column prop="cutel" label="客户号码">
       </el-table-column>
-      <el-table-column prop="prtms" label="员工号码">
+      <el-table-column prop="tel" label="员工号码">
       </el-table-column>
-      <el-table-column width="200px" label="拨打时间">
+      <el-table-column width="200px" prop="call_time" label="拨打时间">
         <template scope="scope">
           {{scope.row.call_time.time | dateFormat}}
         </template>
       </el-table-column>
       <el-table-column prop="duration" label="时长(秒)">
       </el-table-column>
-      <el-table-column prop="csName" label="状态">
+      <el-table-column prop="csname" label="状态">
       </el-table-column>
       <el-table-column label="录音">
         <template scope="scope">
@@ -101,6 +101,7 @@ export default {
           this.respData = inData.records; // 表格数据
           this.pageSize = +inData.page_size; // 每页显示条数
           this.totalrecord = +inData.totalrecord; // 总数据条数
+          //console.log("respData-----"+respData);
         } catch (e) {
           this.respData = [];
           this.$message({ message: "未查询到数据！", type: 'error', });
@@ -120,7 +121,7 @@ export default {
       require.ensure([], () => {　　　　　　　　
         const { export_json_to_excel } = require('@/vendor/Export2Excel');　　　　　　　　
         const tHeader = ["员工", "客户标识", "客户号码", "员工号码", "拨打时间", "时长", "状态"];　　　　　　　　
-        const filterVal = ["name", "", "otherms", "prtms", "time", "duration", "csName"];　　　　　　　　
+        const filterVal = ["name", "code", "cutel", "tel", "call_time", "duration", "csname"];　　　　　　　　
         const data = this.formatJson(filterVal, this.respData);　　　　　　　　
         export_json_to_excel(tHeader, data, "呼出记录");
       })　　　　
