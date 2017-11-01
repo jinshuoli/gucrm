@@ -203,10 +203,10 @@
           【 {{EditStaffForm.org}} 】
           <el-button auto-complete="off" @click="openTreeDialog">选择部门</el-button>
         </el-form-item>
-        <el-form-item label="号码：">
+        <!-- <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(EditStaffForm.numberList)">添加号码</el-button>
           <span style="color:gray">（用途-小号-被叫）</span>
-        </el-form-item>
+        </el-form-item> -->
         <!-- 动态添加号码 —— start -->
         <el-form-item v-for="(items,index) in AddStaffForm.numberList" :key="index">
           <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>

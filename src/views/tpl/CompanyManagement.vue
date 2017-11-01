@@ -1,3 +1,4 @@
+<!-- 公司管理页面 -->
 <template>
   <el-row>
     <el-col :offset="2" :span="17">
@@ -187,7 +188,7 @@ export default {
       require.ensure([], () => {　　　　　　　　
         const { export_json_to_excel } = require('@/vendor/Export2Excel');　　　　　　　　
         const tHeader = ["姓名", "已接通", "未接通", "总电话量", "接通率(%)"];　　　　　　　　
-        const filterVal = ["cName", "connTotal", "disconnTotal", "callTotal", "connRate"];　　　　　　　　
+        const filterVal = ["channelName", "connTotal", "disconnTotal", "callTotal", "connRate"];　　　　　　　　
         const data = this.formatJson(filterVal, this.tableData);　　　　　　　　
         export_json_to_excel(tHeader, data, "呼入分析");
       })　　　　

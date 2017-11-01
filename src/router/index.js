@@ -18,6 +18,7 @@ import custSetup from '@/views/tpl/custSetup.vue'
 import rbac from '@/views/tpl/rbac.vue'
 import SystemConf from '@/views/tpl/SystemConf.vue'
 import resetPwd from '@/views/tpl/resetPwd.vue'
+import CompanyManagement from '@/views/tpl/CompanyManagement.vue'
 
 import test from '@/components/test.vue'
 
