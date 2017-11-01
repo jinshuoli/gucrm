@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-default/index.css'
 import 'font-awesome/css/font-awesome.min.css'; //  http://fontawesome.io
 import axios from 'axios'
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 // axios.defaults.baseURL = '/api/';
 

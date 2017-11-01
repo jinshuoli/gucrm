@@ -14,7 +14,7 @@
       </el-table-column>
       <el-table-column prop="tel" label="员工号码">
       </el-table-column>
-      <el-table-column prop="call_time" label="拨打时间">
+      <el-table-column label="拨打时间">
         <template scope="scope">
           {{scope.row.call_time.time | dateFormat}}
         </template>

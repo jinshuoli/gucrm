@@ -65,7 +65,7 @@
       <el-col :offset="3" :span="5">
         <el-button type="primary" @click="AddStaffDialog = true">新增</el-button>
         <el-button type="primary" @click="dialogImportFile = true">导入</el-button>
-        <el-button type="primary">删除</el-button>
+        <!-- <el-button type="primary">删除</el-button> -->
       </el-col>
     </el-row>
     <br>
@@ -153,7 +153,7 @@
         </el-form-item>
         <el-form-item label="部门：">
           【 {{AddStaffForm.org}} 】
-          <!-- <el-button auto-complete="off" @click="openTreeDialog">选择部门</el-button> -->
+          <el-button auto-complete="off" @click="openTreeDialog">选择部门</el-button>
         </el-form-item>
         <!-- <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(AddStaffForm.numberList)">添加号码</el-button>

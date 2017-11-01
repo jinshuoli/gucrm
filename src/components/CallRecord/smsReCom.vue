@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column prop="time_stamp" label="发送时间">
         <template scope="scope">
-          {{scope.row.call_time.time | dateFormat}}
+          {{scope.row.time_stamp.time | dateFormat}}
         </template>
       </el-table-column>
       <el-table-column prop="sms_content" :show-overflow-tooltip="true" label="内容">

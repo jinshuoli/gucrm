@@ -100,6 +100,7 @@ export default {
           this.respData = inData.records; // 表格数据
           this.pageSize = +inData.page_size; // 每页显示条数
           this.totalrecord = +inData.totalrecord; // 总数据条数
+          console.log(respData);
         } catch (e) {
           this.respData = [];
           this.$message({ message: "未查询到数据！", type: 'error', });
