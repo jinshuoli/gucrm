@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
            '/api': {
-                target: 'http://192.168.3.250:8080/gucrm',   // zm
+                target: 'http://192.168.3.249:8080/gucrm',   // zm
                 // target: 'http://192.168.191.3:8080/gucrm',   // zh
                 // target: 'http://192.168.191.2:8080/gucrm',      // xh
                 // target: 'http://101.201.101.70:8080/gucrm',  // server

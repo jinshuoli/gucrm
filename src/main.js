@@ -10,7 +10,7 @@ import axios from 'axios'
 
 // axios.defaults.withCredentials = true;
 
-// axios.defaults.baseURL = '/api/';
+// axios.defaults.baseURL = '/api/';//打包就注释，自己本地运行就打开
 
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios

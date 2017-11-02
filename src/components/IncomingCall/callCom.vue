@@ -11,7 +11,7 @@
       <el-form-item style="width:150px;">
         <el-select v-model.trim="callLogForm.adviser" placeholder="员工名称">
           <el-option label="员工名称" value="name"></el-option>
-          <el-option label="员工号码" value="utel"></el-option>
+          <el-option label="员工号码" value="tel"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -19,7 +19,7 @@
       </el-form-item>
       <el-form-item style="width:150px;">
         <el-select v-model.trim="callLogForm.customer" placeholder="客户号码">
-          <el-option label="客户号码" value="tel"></el-option>
+          <el-option label="客户号码" value="utel"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -49,17 +49,20 @@
       </el-table-column>
       <!-- <el-table-column prop="channel_name" label="渠道">
       </el-table-column> -->
+
       <el-table-column prop="tel" label="员工号码">
-        <template scope="scope">
-          <el-tag type="primary">{{scope.row.prtms}}</el-tag>
-        </template>
+        <!-- <template scope="scope">
+          <el-tag type="primary">{{scope.row.tel}}</el-tag>
+        </template> -->
       </el-table-column>
+
       <el-table-column prop="utel" label="客户号码">
-        <template scope="scope">
-          <el-tag type="warning">{{scope.row.otherms}}</el-tag>
-        </template>
+        <!-- <template scope="scope">
+          <el-tag type="warning">{{scope.row.utel}}</el-tag>
+        </template> -->
       </el-table-column>
-        <el-table-column prop="call_time" label="拨打时间" width="160px">
+
+        <el-table-column label="拨打时间" width="160px">
           <template scope="scope">
             {{scope.row.call_time.time | dateFormat}}
           </template>
@@ -215,13 +218,7 @@ export default {
       require.ensure([], () => {　　　　　　　　
         const { export_json_to_excel } = require('@/vendor/Export2Excel');
         const tHeader = ["员工名称", "员工号码", "客户号码", "拨打时间", "时长", "状态", "录音"];　　　　　　　　
-        const filterVal = ["name", "tel", "utel", "call_time", "duration", "state", ""];　　　　　　
-        // const tHeader = ["用户", "顾问名称", "渠道", "顾问号码",
-        //   "客户号码", "拨打时间", "时长(秒)", "状态",
-        // ];　　　　　　　　
-        // const filterVal = ["code", "name", "channel_name", "prtms",
-        //   "otherms", "call_time", "duration", "csName"
-        // ];　　　　　　　　
+        const filterVal = ["name", "tel", "utel", "call_time", "duration", "state", ""];　　　　　　　　　　　　
         const data = this.formatJson(filterVal, this.tableData);　　　　　　　　
         export_json_to_excel(tHeader, data, "通话记录");
       })　　　　

@@ -151,9 +151,9 @@
         <el-form-item label="身份证">
           <el-input v-model.trim="AddStaffForm.idcard" auto-complete="off" placeholder="可选"></el-input>
         </el-form-item>
-        <el-form-item label="部门：">
+        <el-form-item label="公司：">
           【 {{AddStaffForm.org}} 】
-          <el-button auto-complete="off" @click="openTreeDialog">选择部门</el-button>
+          <el-button auto-complete="off" @click="openTreeDialog">选择公司</el-button>
         </el-form-item>
         <!-- <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(AddStaffForm.numberList)">添加号码</el-button>
@@ -286,7 +286,7 @@ export default {
       isTreeDialog: false,
       // 员工查询
       staffForm: {
-        org: '全部',
+        org: '公司',
         orgId: '',
         duty: "",
         power: 'all',
@@ -306,7 +306,7 @@ export default {
       AddStaffV: {},
       // 新增员工表单
       AddStaffForm: {
-        org: '全部',
+        org: '公司',
         orgId: '',
         code: '',
         power: '',

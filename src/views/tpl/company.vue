@@ -4,6 +4,7 @@
     <el-col :offset="2" :span="17">
       <br>
       <!-- 表单 —— start-->
+      <p>这是公司管理页面</p>
       <el-form ref="InboundAnalyForm" :inline="true">
         <!-- <el-form-item label="媒体">
           <el-select v-model.trim="InboundAnalysisForm.channelName" clearable placeholder="全部">

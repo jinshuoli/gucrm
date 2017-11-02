@@ -12,7 +12,7 @@
         </el-select>
         <el-input v-model.trim="formList.nameOrUser" style="width:200px" placeholder="按员工号码或名称查询"></el-input>
         <el-select v-model.trim="formList.customer" placeholder="客户号码">
-          <el-option label="客户名称" value="name"></el-option>
+          <!-- <el-option label="客户名称" value="name"></el-option> -->
           <el-option label="客户号码" value="number"></el-option>
         </el-select>
         <el-input v-model.trim="formList.CustomerNumber" style="width:200px" placeholder="按客户号码或名称查询"></el-input>
@@ -50,7 +50,7 @@ export default {
         deptId: '',
         adviser: 'name',
         nameOrUser: '',
-        customer: 'name',
+        customer: '',
         CustomerNumber: '',
         isDiff: false,
         dateVal: '',

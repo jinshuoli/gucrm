@@ -48,19 +48,19 @@
       </el-table-column>
       <el-table-column prop="acms" label="小号">
       </el-table-column>
-      <el-table-column prop="tel" label="员工号码">
+      <el-table-column label="员工号码">
         <template scope="scope">
-          <el-tag type="primary">{{scope.row.prtms}}</el-tag>
+          <el-tag type="primary">{{scope.row.tel}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="cutel" label="客户号码">
         <template scope="scope">
-          <el-tag type="warning">{{scope.row.otherms}}</el-tag>
+          <el-tag type="warning">{{scope.row.cutel}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="time_stamp" label="发送时间">
+      <el-table-column label="发送时间">
         <template scope="scope">
-          {{scope.row.call_time.time | dateFormat}}
+          {{scope.row.time_stamp.time | dateFormat}}
         </template>
       </el-table-column>
       <el-table-column prop="sms_content" :show-overflow-tooltip="true" label="内容">
@@ -177,8 +177,7 @@ export default {
       require.ensure([], () => {　　　　　　　　
         const { export_json_to_excel } = require('@/vendor/Export2Excel');　　　　　　　　
         const tHeader = ["员工名称", "客户", "小号", "员工号码", "客户号码", "发送时间", "内容"];　　　　　　　　
-        const filterVal = ["name", "cuname", "acms", "tel", "cutel", "time_stamp", "sms_content"];　
-        // const filterVal = ["name", "name", "acms", "call_time", "code", "tel", "sms_content","callId"];　　　　　　　
+        const filterVal = ["name", "cuname", "acms", "tel", "cutel", "time_stamp", "sms_content"];　　　　　　　
         const data = this.formatJson(filterVal, this.tableData);　　　　　　　　
         export_json_to_excel(tHeader, data, "短信记录");
       })　　　　
