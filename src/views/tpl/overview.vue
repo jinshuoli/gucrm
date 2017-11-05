@@ -6,7 +6,7 @@
         <ul>
           <li>姓名 : {{userInfo.name}} </li>
           <li>职务 : {{userInfo.duty}} </li>
-          <li>公司 : {{userInfo.orgName}}
+          <li>公司 : {{userInfo.cName}}
             <router-link :to="{path: '/gucrm/StaffAdmin'}">员工管理</router-link>
           </li>
         </ul>
@@ -47,7 +47,7 @@ export default {
         itotal: 0,
         name: "test",
         channelCallIn: 0,
-        orgName: "",
+        cName: "",
         custCallIn: 0,
         callOut: 0
       }

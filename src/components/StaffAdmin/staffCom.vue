@@ -113,8 +113,8 @@
       <el-table-column label="操作" width="250">
         <template scope="scope">
           <el-button size="small" type="text" @click="openEditStaff(scope.$index, scope.row)">编辑</el-button>
-          <!-- <el-button size="small" type="text" @click="unBind(scope.$index, scope.row)">解绑</el-button>
-          <el-button size="small" type="text" @click="openChangeBind(scope.$index, scope.row)">换绑</el-button> -->
+          <el-button size="small" type="text" @click="unBind(scope.$index, scope.row)">解绑</el-button>
+          <el-button size="small" type="text" @click="openChangeBind(scope.$index, scope.row)">换绑</el-button>
           <el-button size="small" type="text" @click="handleDel(scope.$index, scope.row)">删除</el-button>
           <el-button size="small" type="text" @click="resetPwd(scope.$index, scope.row)">重置密码</el-button>
         </template>
@@ -155,16 +155,16 @@
           【 {{AddStaffForm.org}} 】
           <el-button auto-complete="off" @click="openTreeDialog">选择公司</el-button>
         </el-form-item>
-        <!-- <el-form-item label="号码：">
+        <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(AddStaffForm.numberList)">添加号码</el-button>
           <span style="color:gray">（用途-小号-被叫）</span>
-        </el-form-item> -->
+        </el-form-item>
         <!-- 动态添加号码 —— start -->
         <el-form-item v-for="(items,index) in AddStaffForm.numberList" :key="index">
-          <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>
+          <!-- <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>
           <el-select style="width:160px;" v-model.trim="items.channelVal">
             <el-option v-for="(item,index) in items.channel" :value="item.value" :label="item.label" :key="index"></el-option>
-          </el-select> -
+          </el-select> - -->
           <el-input v-model.trim="items.master" style="width:160px;" placeholder="主叫">主叫</el-input> -
           <el-input v-model.trim="items.trumpet" style="width:160px;" placeholder="小号"></el-input> -
           <el-checkbox v-model.trim="items.upline">上线</el-checkbox>
@@ -203,10 +203,10 @@
           【 {{EditStaffForm.org}} 】
           <el-button auto-complete="off" @click="openTreeDialog">选择部门</el-button>
         </el-form-item>
-        <!-- <el-form-item label="号码：">
+        <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(EditStaffForm.numberList)">添加号码</el-button>
           <span style="color:gray">（用途-小号-被叫）</span>
-        </el-form-item> -->
+        </el-form-item>
         <!-- 动态添加号码 —— start -->
         <el-form-item v-for="(items,index) in AddStaffForm.numberList" :key="index">
           <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>

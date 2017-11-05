@@ -58,19 +58,14 @@ export default {
     return {
       isCollapse: false, // 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用）
       navList: [
-        // {icon:'fa fa-home',name:'概览',src:'/gucrm/main/overview'},
-        // {icon:'fa fa-signal',name:'呼入分析',src:'/gucrm/main/IncomingAnalysis'},
-        // {icon:'fa fa-phone ',name:'呼入记录',src:'/gucrm/main/IncomingCall'},
-        // {icon:'fa fa-bullhorn',name:'外呼记录',src:'/gucrm/main/CallRecord'},
-        // {icon:'fa fa-comment',name:'通知记录',src:'/gucrm/main/NotificationRecord'},
-        // {icon:'fa fa-address-book ',name:'客户管理',src:'/gucrm/main/custAdmin'},
-        // {icon:'fa fa-user',name:'员工管理',src:'/gucrm/main/StaffAdmin'},
-        // {icon:'fa fa-id-card ',name:'权限管理',src:'/gucrm/main/rbac'},
-        // {icon:'fa fa-headphones',name:'呼入设置',src:'/gucrm/main/InboundSetup'},
-        // {icon:'fa fa-microphone',name:'外呼设置',src:'/gucrm/main/CallSetup'},
-        // {icon:'fa fa-address-book-o ',name:'客户设置',src:'/gucrm/main/custSetup'},
-        // {icon:'fa fa-wrench',name:'系统设置',src:'/gucrm/main/SystemConf'},
-        // {icon:'test',name:'test',src:'/gucrm/main/test'},
+        // {icon:'fa fa-home',name:'概览',src:'/gucrm/overview'},
+        // {icon:'fa fa-signal',name:'呼入分析',src:'/gucrm/IncomingAnalysis'},
+        // {icon:'fa fa-phone ',name:'呼入记录',src:'/gucrm/IncomingCall'},
+        // {icon:'fa fa-bullhorn',name:'外呼记录',src:'/gucrm/CallRecord'},
+        // {icon:'fa fa-user',name:'员工管理',src:'/gucrm/StaffAdmin'},
+        // {icon:'fa fa-microphone',name:'外呼设置',src:'/gucrm/CallSetup'},
+        // {icon:'fa fa-microphone',name:'公司管理',src:'/gucrm/company'},
+        // {icon:'test',name:'test',src:'/gucrm/test'},
       ],
     }
   },

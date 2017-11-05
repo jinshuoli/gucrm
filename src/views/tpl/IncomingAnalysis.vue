@@ -16,7 +16,7 @@
         <el-form-item label="员工">
           <el-input v-model.trim="InboundAnalysisForm.name" style="width:225px" placeholder="按用户名或用户查询"></el-input>
         </el-form-item>
-        <el-form-item label="时长">
+        <!-- <el-form-item label="时长">
           <el-select v-model.trim="InboundAnalysisForm.duration" placeholder="——请选择——">
             <el-option label=" >10秒" value="10"></el-option>
             <el-option label=" >30秒" value="30"></el-option>
@@ -26,7 +26,7 @@
             <el-option label=" >15分钟" value="900"></el-option>
             <el-option label=" >30分钟" value="1800"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="时间">
           <el-date-picker v-model.trim="dateValue" type="datetimerange" @change="dateChange" placeholder="选择日期范围">
           </el-date-picker>
@@ -126,7 +126,7 @@ export default {
       // console.log(val)
     },
     getChannel() {
-      this.$axios.get('channel_channelList.action').then(response => {
+      this.$axios.get('Company_findallCompany.action').then(response => {
         this.ChannelGet = JSON.parse(response.data)
       })
     },
@@ -163,7 +163,7 @@ export default {
     getAnalysisTable() {
       this.tableLoading = true;
       console.log(JSON.stringify(this.InboundAnalysisForm))
-      this.$axios.get('callInAnalyze_queryCallInList.action?jsonData=' + JSON.stringify(this.InboundAnalysisForm)).then(response => {
+      this.$axios.get('Company_findallCompany.action?jsonData=' + JSON.stringify(this.InboundAnalysisForm)).then(response => {
         this.tableLoading = false;
         try {
           console.log(response.data)
