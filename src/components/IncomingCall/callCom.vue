@@ -70,7 +70,7 @@
       <template v-hide="!callLogForm.isDiff">
         <el-table-column prop="duration" label="时长(秒)">
         </el-table-column>
-        <el-table-column prop="state" label="状态">
+        <el-table-column prop="csName" label="状态">
         </el-table-column>
         <el-table-column label="录音" width="80px">
           <template scope="scope">

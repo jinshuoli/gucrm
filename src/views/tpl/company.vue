@@ -56,20 +56,29 @@
       <el-dialog title="公司管理" :visible.sync="dialogFormVisible">
         <el-form :model="addCompanyForm" :rules="rules" label-width="80px">
           <el-form-item label="公司" prop="c_name">
-            <el-input v-model.trim="addCompanyForm.c_name" auto-complete="off"></el-input>
+            <el-input v-model.trim="addCompanyForm.c_name" auto-complete="off" class="inp"></el-input>
           </el-form-item>
           <el-form-item label="编号" prop="code">
-            <el-input v-model.trim="addCompanyForm.code" auto-complete="off"></el-input>
+            <el-input v-model.trim="addCompanyForm.code" auto-complete="off" class="inp"></el-input>
           </el-form-item>
           <el-form-item label="法人" prop="legalperson">
-            <el-input v-model.trim="addCompanyForm.legalperson" auto-complete="off"></el-input>
+            <el-input v-model.trim="addCompanyForm.legalperson" auto-complete="off" class="inp"></el-input>
             </el-select>
           </el-form-item>
           <el-form-item label="联系人" prop="linkman">
-            <el-input v-model.trim="addCompanyForm.linkman" auto-complete="off"></el-input>
+            <el-input v-model.trim="addCompanyForm.linkman" auto-complete="off" class="inp"></el-input>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="联系电话" prop="linktel">
+            <el-input v-model.trim="addCompanyForm.linktel" auto-complete="off" class="inp"></el-input>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="注册号" prop="social_code">
+            <el-input v-model.trim="addCompanyForm.social_code" auto-complete="off" class="inp" placeholder="工商执照注册号/统一社会信用代号"></el-input>
             </el-select>
           </el-form-item>
         </el-form>
+
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="addCompanyOK">确 定</el-button>
@@ -95,6 +104,7 @@ export default {
         c_name: '', //公司
         legalperson: "", //法人
         linkman: "", //联系人
+        linktel:"",//联系电话
       },
       // 表格
       tableData: [],
@@ -106,11 +116,47 @@ export default {
         c_name: '', //公司
         legalperson: "", //法人
         linkman: "", //联系人
+        linktel:"",//联系电话
       },
       // 分页选中
       currentPage: 1,
       pageSize: 5, // 每页显示条数
       totalrecord: 0, // 总数据条数
+      //表单验证
+      ruleForm:{
+        c_name:"",       //公司
+        code:"",         //编号
+        legalperson:"",  //法人
+        linkman:"",      //联系人
+        linktel:"",      //联系电话
+        social_code:"",  //注册号
+      },
+      rules:{
+        c_name:[
+          { required: true, message: '请输入公司名', trigger: 'blur' }
+        ],
+      code: [
+          { required: true, message: '请输入编号', trigger: 'blur' },
+          { min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur' }
+      ],
+      legalperson: [
+          { required: true, message: '请输入法人姓名', trigger: 'blur' },
+          { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
+      ],
+      linkman: [
+          { required: true, message: '请输入联系人', trigger: 'blur' },
+          { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
+      ],
+      linktel: [
+          { required: true, message: '请输入联系人电话', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度位11位手机号', trigger: 'blur' }
+      ],
+      social_code: [
+          { required: true, message: '请输入工商执照注册号', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度位11位手机号', trigger: 'blur' }
+      ]
+
+      }
     };
   },
   methods: {
@@ -188,6 +234,8 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.inp{
+  width: 80%;
+}
 
 </style>
