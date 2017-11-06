@@ -67,7 +67,7 @@
           </el-form-item>
           <el-form-item label="联系人" prop="linkman">
             <el-input v-model.trim="addCompanyForm.linkman" auto-complete="off"></el-input>
-          </el-select>
+            </el-select>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -91,16 +91,10 @@ export default {
       ChannelGet: [],
       // 查询
       companyForm: {
-<<<<<<< HEAD
-        code: '',//编号
-        c_name: '',//公司
-        legalperson:"", //法人
-        linkman:"",//联系人
-=======
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
->>>>>>> 8f7f7b8b0b70847eec55df4c14b5740c479ad5b5
+        linkman: "", //联系人
       },
       // 表格
       tableData: [],
@@ -108,16 +102,10 @@ export default {
       // 新增
       dialogFormVisible: false,
       addCompanyForm: {
-<<<<<<< HEAD
-        code: '',//编号
-        c_name: '',//公司
-        legalperson:"", //法人
-        linkman:"",//联系人
-=======
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
->>>>>>> 8f7f7b8b0b70847eec55df4c14b5740c479ad5b5
+        linkman: "", //联系人
       },
       // 分页选中
       currentPage: 1,
@@ -163,25 +151,14 @@ export default {
       })
     },
     //新增
-<<<<<<< HEAD
-    addCompanyOK(){
-         this.dialogFormVisible = true
-         this.$axios.post("company_addCompany.action?jsonData="+JSON.stringify(this.addCompanyForm)).then(response => {
-          this.$message({ message: "新增公司成功", type: 'success' });
-          this.getCompanyTable();
-        }, response => {
-          this.$message({ message: "新增公司失败：" + response, type: 'error' })
-        })
-=======
     addCompanyOK() {
       this.dialogFormVisible = false
-      this.$axios.get("addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
+      this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
         this.$message({ message: "新增公司成功", type: 'success' });
-        this.QueryCompany()
+        this.getCompanyTable();
       }, response => {
         this.$message({ message: "新增公司失败：" + response, type: 'error' })
       })
->>>>>>> 8f7f7b8b0b70847eec55df4c14b5740c479ad5b5
     },
     // 删除
     clickDel(index, row) {

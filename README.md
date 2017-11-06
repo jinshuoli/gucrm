@@ -1,6 +1,6 @@
 # 5i5j
 
-> 一个用vuej+elementUI构建的5i5j虚拟号管理系统
+> 一个用vuej+elementUI构建的第二代号外号crm
 
 ## Build Setup
 
