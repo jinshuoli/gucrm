@@ -18,7 +18,7 @@ import custSetup from '@/views/tpl/custSetup.vue'
 import rbac from '@/views/tpl/rbac.vue'
 import SystemConf from '@/views/tpl/SystemConf.vue'
 import resetPwd from '@/views/tpl/resetPwd.vue'
-import Company from '@/views/tpl/company.vue'
+import Company from '@/views/tpl/Company.vue'
 
 import test from '@/components/test.vue'
 
@@ -49,7 +49,7 @@ export default new Router({
         { path: 'CallSetup', component: CallSetup, name: '外呼设置' },
         { path: 'custSetup', component: custSetup, name: '客户设置' },
         { path: 'SystemConf', component: SystemConf, name: '系统设置' },
-        { path: 'company', component: Company, name: '公司管理' },
+        { path: 'Company', component: Company, name: '公司管理' },
         { path: 'resetPwd', component: resetPwd, name: '重置密码' },
         { path: 'test', component: test, name: '测试' },
       ],

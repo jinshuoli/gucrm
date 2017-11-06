@@ -97,7 +97,8 @@
               </p>
             </template>
             <div slot="reference" class="name-wrapper">
-              <el-tag>号码关系</el-tag>
+              <!-- <el-tag>号码关系</el-tag> -->
+              <el-tag :class="{ 'active-wrapper': scope.row.subrelas.length >= 1}">号码关系</el-tag>
             </div>
           </el-popover>
         </template>
@@ -249,14 +250,18 @@
     <!-- 换绑 弹框 —— start-->
     <el-dialog title="换绑" :visible.sync="changeBindDialog">
       <el-form :model="changeBindDialogFrom">
-        <el-form-item label="用户名">
-          <el-input v-model.trim="changeBindDialogFrom.name" style="width:300px;" placeholder="请输入要换绑的用户名"></el-input><span> ( 必填 )</span>
+        <el-form-item label="员工编号">
+          <el-input v-model.trim="changeBindDialogFrom.code" style="width:300px;" :disabled="true" placeholder="请输入要换绑的用户名"></el-input><span> ( 必填 )</span>
         </el-form-item>
         <el-form-item label="号码:" v-for="(item,index) in changeBindDialogFrom.subrelas" :key="index">
           <el-checkbox v-model.trim="item.isChange"></el-checkbox>
-          <el-input v-model.trim="item.channelName" :disabled="true" style="width:160px;"></el-input>
-          <el-input v-model.trim="item.anum" :disabled="true" style="width:160px;"></el-input>
+
+          <!-- <el-input v-model.trim="item.channelName" :disabled="true" style="width:160px;"></el-input> -->
+
+          <el-input v-model.trim="item.anum" style="width:160px;"></el-input>
+
           <el-input v-model.trim="item.xnum" :disabled="true" style="width:160px;"></el-input>
+
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -788,7 +793,9 @@ export default {
 .el-dropdown-menu__item>p {
   margin: 0px;
 }
-
+.active-wrapper{
+  background-color: #F7BA2A;
+}
 .el-icon-close:hover {
   color: red;
   cursor: pointer;

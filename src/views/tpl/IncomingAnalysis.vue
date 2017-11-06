@@ -16,29 +16,10 @@
         <el-form-item label="员工">
           <el-input v-model.trim="InboundAnalysisForm.name" style="width:225px" placeholder="按用户名或用户查询"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="时长">
-          <el-select v-model.trim="InboundAnalysisForm.duration" placeholder="——请选择——">
-            <el-option label=" >10秒" value="10"></el-option>
-            <el-option label=" >30秒" value="30"></el-option>
-            <el-option label=" >40秒" value="40"></el-option>
-            <el-option label=" >1分钟" value="60"></el-option>
-            <el-option label=" >5分钟" value="300"></el-option>
-            <el-option label=" >15分钟" value="900"></el-option>
-            <el-option label=" >30分钟" value="1800"></el-option>
-          </el-select>
-        </el-form-item> -->
         <el-form-item label="时间">
           <el-date-picker v-model.trim="dateValue" type="datetimerange" @change="dateChange" placeholder="选择日期范围">
           </el-date-picker>
         </el-form-item>
-        <!-- <el-form-item label="查看">
-          <el-radio-group v-model.trim="InboundAnalysisForm.button">
-            <el-radio label="media">按媒体</el-radio>
-            <el-radio label="dept">按部门</el-radio>
-            <el-radio label="rest">按坐席</el-radio>
-          </el-radio-group>
-          <el-checkbox v-model.trim="InboundAnalysisForm.checkBox">号码去重</el-checkbox>
-        </el-form-item> -->
         <el-form-item label="">
           <el-button type="primary" @click="QueryAnalysis">统计</el-button>
           <el-button type="primary" @click="export2Excel">导出</el-button>
@@ -126,7 +107,7 @@ export default {
       // console.log(val)
     },
     getChannel() {
-      this.$axios.get('Company_findallCompany.action').then(response => {
+      this.$axios.get('callInAnalyze_queryCallInList.action').then(response => {
         this.ChannelGet = JSON.parse(response.data)
       })
     },
@@ -163,7 +144,7 @@ export default {
     getAnalysisTable() {
       this.tableLoading = true;
       console.log(JSON.stringify(this.InboundAnalysisForm))
-      this.$axios.get('Company_findallCompany.action?jsonData=' + JSON.stringify(this.InboundAnalysisForm)).then(response => {
+      this.$axios.get('callInAnalyze_queryCallInList.action?jsonData=' + JSON.stringify(this.InboundAnalysisForm)).then(response => {
         this.tableLoading = false;
         try {
           console.log(response.data)

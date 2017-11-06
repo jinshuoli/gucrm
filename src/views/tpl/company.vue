@@ -17,6 +17,7 @@
         </el-form-item>
         <el-form-item label="">
           <el-button type="primary" @click="QueryCompany">查询</el-button>
+          <el-button type="primary" @click="NewlyAdded">新增</el-button>
         </el-form-item>
       </el-form>
       <!-- 表单 ——end-->
@@ -24,14 +25,24 @@
       <el-table ref="multipleTable" v-loading="tableLoading" :data="tableData" border tooltip-effect="dark" style="width: 100%">
         <el-table-column prop="c_name" label="公司名称"></el-table-column>
         <el-table-column prop="code" label="公司编码"></el-table-column>
-        <el-table-column prop="descry" label="公司简称"></el-table-column>
-        <el-table-column prop="status" label="公司状态"></el-table-column>
+        <el-table-column prop="descry" label="公司简称">
+        </el-table-column>
+        <el-table-column prop="status" label="公司状态">
+        <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
+        </el-table-column>
         <el-table-column prop="state" label="审核状态"> </el-table-column>
         <el-table-column prop="business_licence" label="营业执照副本"> </el-table-column>
-        <el-table-column prop="social_code" label="工商执照注册号"> </el-table-column>
+        <el-table-column prop="social_code" label="工商执照注册号">
+        </el-table-column>
         <el-table-column prop="legalperson" label="企业法人"> </el-table-column>
         <el-table-column prop="linkman" label="联系人"> </el-table-column>
         <el-table-column prop="linktel" label="联系电话"> </el-table-column>
+        <el-table-column label="操作" width="200px">
+          <template scope="scope">
+            <el-button size="small" type="text" @click="clickEdit(scope.$index, scope.row)">修改</el-button>
+            <el-button size="small" type="text" @click="clickDel(scope.$index, scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <!-- 表格 ——end-->
       <!-- 分页1 —— start-->
@@ -40,6 +51,34 @@
         </el-pagination>
       </el-col>
       <!-- 分页1 —— end-->
+      <!-- 弹框 —— start-->
+      <el-dialog title="公司管理" :visible.sync="dialogFormVisible">
+        <!-- <el-form :model="AccountForm" :rules="rules" ref="AccountForm" label-width="80px">
+          <el-form-item label="员工姓名" prop="name">
+            <el-input v-model.trim="AccountForm.name" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="员工编号" prop="code">
+            <el-input v-model.trim="AccountForm.code" auto-complete="off"></el-input>
+          </el-form-item> -->
+  <!--         <el-form-item label="所属公司" prop="company">
+            <el-select v-model.trim="AccountForm.company" style="width:100%" placeholder="选择所属公司">
+              <el-option v-for="item in CompanyGet" :label="item.descrShort" :value="item.setId" :key="item.setId"></el-option>
+            </el-select> -->
+          <!-- </el-form-item>
+          <el-form-item label="选择部门" prop="org">
+            【 <span v-text="AccountForm.org"></span> 】 <a href="javaScript:void(0)" @click="openTreeDialog">选择</a>
+          </el-form-item>
+          <el-form-item label="权限">
+            <el-checkbox label="数据权限" v-model.trim="AccountForm.dataPermission" :true-label="1" :false-label="0"></el-checkbox> -->
+            <!-- <el-checkbox label="超级管理员" v-model.trim="AccountForm.functionPermission" :true-label="1" :false-label="0"></el-checkbox> -->
+          <!-- </el-form-item>
+        </el-form> -->
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogOK('AccountForm')">确 定</el-button>
+        </div>
+      </el-dialog>
+      <!-- 弹框 —— end-->
     </el-col>
   </el-row>
 </template>
@@ -77,21 +116,44 @@ export default {
     dateChange(val) {
       this.companyForm.dateVal = val;
     },
-    // 呼入分析查询
+    // 公司查询
     QueryCompany() {
       this.companyForm.currentPage = this.currentPage;
       this.getCompanyTable()
+    },
+    //新增页面
+    NewlyAdded(){
+      alert("新增页面正在紧张的排版当中，请稍后......")
     },
     // 分页变化时触发
     CurrentPageChange(val) {
       this.companyForm.currentPage = val;
       this.getCompanyTable()
     },
+    // 删除
+    clickDel(index, row) {
+      this.$confirm('您确定要将这个公司删除吗？', '删除公司', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+
+        this.$axios.get("company_delete.action?id=" + row.id).then(response => {
+          this.$message({ message: "删除公司成功", type: 'success' });
+          this.getAccount();
+        }, response => {
+          this.$message({ message: "删除公司失败：" + response, type: 'error' })
+        })
+
+      }).catch(() => {
+        this.$message({ message: '已取消删除', type: 'info', });
+      });
+    },
     // 获取通话记录表格的数据
     getCompanyTable() {
       this.tableLoading = true;
       console.log(JSON.stringify(this.companyForm))
-      this.$axios.post('callInAnalyze_queryCallInList.action?jsonData=' + JSON.stringify(this.companyForm)).then(response => {
+      this.$axios.get('company_findallCompany.action?jsonData=' + JSON.stringify(this.companyForm)).then(response => {
         this.tableLoading = false;
         try {
           console.log(response.data)
