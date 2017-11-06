@@ -64,6 +64,10 @@
             <el-input v-model.trim="addCompanyForm.legalperson" auto-complete="off"></el-input>
           </el-select>
           </el-form-item>
+          <el-form-item label="联系人" prop="linkman">
+            <el-input v-model.trim="addCompanyForm.linkman" auto-complete="off"></el-input>
+          </el-select>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -89,6 +93,7 @@ export default {
         code: '',//编号
         c_name: '',//公司
         legalperson:"", //法人
+        linkman:"",//联系人
       },
       // 表格
       tableData: [],
@@ -99,6 +104,7 @@ export default {
         code: '',//编号
         c_name: '',//公司
         legalperson:"", //法人
+        linkman:"",//联系人
       },
       // 分页选中
       currentPage: 1,
@@ -148,7 +154,8 @@ export default {
     },
     //新增
     addCompanyOK(){
-         this.$axios.post("company_delete.action?jsonData="+JSON.stringify(this.addCompanyForm)).then(response => {
+         this.dialogFormVisible = true
+         this.$axios.post("company_addCompany.action?jsonData="+JSON.stringify(this.addCompanyForm)).then(response => {
           this.$message({ message: "新增公司成功", type: 'success' });
           this.getCompanyTable();
         }, response => {

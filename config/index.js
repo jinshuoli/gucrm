@@ -29,10 +29,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
            '/api': {
-                // target: 'http://192.168.3.249:8080/gucrm',   // zm
+                target: 'http://192.168.3.251:8080/gucrm',   // zm
                 // target: 'http://192.168.191.3:8080/gucrm',   // zh
                 // target: 'http://192.168.191.2:8080/gucrm',      // xh
-                target: 'http://101.200.221.216:9080/gucrm',  // server
+                // target: 'http://101.200.221.216:9080/gucrm',  // server
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''
