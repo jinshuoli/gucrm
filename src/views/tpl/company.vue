@@ -12,7 +12,8 @@
         <el-form-item label="编号">
           <el-input v-model.trim="companyForm.code" style="width:225px" placeholder="按企业编号查询"></el-input>
         </el-form-item>
-        <el-form-item label="法人"><!-- 这里需要加字段 -->
+        <el-form-item label="法人">
+          <!-- 这里需要加字段 -->
           <el-input v-model.trim="companyForm.legalperson" style="width:225px" placeholder="按企业法人查询"></el-input>
         </el-form-item>
         <el-form-item label="">
@@ -28,7 +29,7 @@
         <el-table-column prop="descry" label="公司简称">
         </el-table-column>
         <el-table-column prop="status" label="公司状态">
-        <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
+          <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
         </el-table-column>
         <el-table-column prop="state" label="审核状态"> </el-table-column>
         <el-table-column prop="business_licence" label="营业执照副本"> </el-table-column>
@@ -62,7 +63,7 @@
           </el-form-item>
           <el-form-item label="法人" prop="legalperson">
             <el-input v-model.trim="addCompanyForm.legalperson" auto-complete="off"></el-input>
-          </el-select>
+            </el-select>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -86,9 +87,9 @@ export default {
       ChannelGet: [],
       // 查询
       companyForm: {
-        code: '',//编号
-        c_name: '',//公司
-        legalperson:"", //法人
+        code: '', //编号
+        c_name: '', //公司
+        legalperson: "", //法人
       },
       // 表格
       tableData: [],
@@ -96,9 +97,9 @@ export default {
       // 新增
       dialogFormVisible: false,
       addCompanyForm: {
-        code: '',//编号
-        c_name: '',//公司
-        legalperson:"", //法人
+        code: '', //编号
+        c_name: '', //公司
+        legalperson: "", //法人
       },
       // 分页选中
       currentPage: 1,
@@ -107,9 +108,6 @@ export default {
     };
   },
   methods: {
-    dateChange(val) {
-      // console.log(val)
-    },
     // ========== 公司管理
     // 格式化后的时间
     dateChange(val) {
@@ -143,17 +141,18 @@ export default {
           this.$message({ message: "未查询到数据！", type: 'error', });
         }
       }, response => {
-        this.$message({ message: "查询数据失败："+response, type: 'error', });
+        this.$message({ message: "查询数据失败：" + response, type: 'error', });
       })
     },
     //新增
-    addCompanyOK(){
-         this.$axios.post("company_delete.action?jsonData="+JSON.stringify(this.addCompanyForm)).then(response => {
-          this.$message({ message: "新增公司成功", type: 'success' });
-          this.getCompanyTable();
-        }, response => {
-          this.$message({ message: "新增公司失败：" + response, type: 'error' })
-        })
+    addCompanyOK() {
+      this.dialogFormVisible = false
+      this.$axios.get("addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
+        this.$message({ message: "新增公司成功", type: 'success' });
+        this.QueryCompany()
+      }, response => {
+        this.$message({ message: "新增公司失败：" + response, type: 'error' })
+      })
     },
     // 删除
     clickDel(index, row) {
