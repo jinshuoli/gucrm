@@ -17,7 +17,7 @@
         </el-form-item>
         <el-form-item label="">
           <el-button type="primary" @click="QueryCompany">查询</el-button>
-          <el-button type="primary" @click="NewlyAdded">新增</el-button>
+          <el-button type="primary" @click="dialogFormVisible = true">新增</el-button>
         </el-form-item>
       </el-form>
       <!-- 表单 ——end-->
@@ -53,29 +53,21 @@
       <!-- 分页1 —— end-->
       <!-- 弹框 —— start-->
       <el-dialog title="公司管理" :visible.sync="dialogFormVisible">
-        <!-- <el-form :model="AccountForm" :rules="rules" ref="AccountForm" label-width="80px">
-          <el-form-item label="员工姓名" prop="name">
-            <el-input v-model.trim="AccountForm.name" auto-complete="off"></el-input>
+        <el-form :model="addCompanyForm" :rules="rules" label-width="80px">
+          <el-form-item label="公司" prop="c_name">
+            <el-input v-model.trim="addCompanyForm.c_name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="员工编号" prop="code">
-            <el-input v-model.trim="AccountForm.code" auto-complete="off"></el-input>
-          </el-form-item> -->
-  <!--         <el-form-item label="所属公司" prop="company">
-            <el-select v-model.trim="AccountForm.company" style="width:100%" placeholder="选择所属公司">
-              <el-option v-for="item in CompanyGet" :label="item.descrShort" :value="item.setId" :key="item.setId"></el-option>
-            </el-select> -->
-          <!-- </el-form-item>
-          <el-form-item label="选择部门" prop="org">
-            【 <span v-text="AccountForm.org"></span> 】 <a href="javaScript:void(0)" @click="openTreeDialog">选择</a>
+          <el-form-item label="编号" prop="code">
+            <el-input v-model.trim="addCompanyForm.code" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="权限">
-            <el-checkbox label="数据权限" v-model.trim="AccountForm.dataPermission" :true-label="1" :false-label="0"></el-checkbox> -->
-            <!-- <el-checkbox label="超级管理员" v-model.trim="AccountForm.functionPermission" :true-label="1" :false-label="0"></el-checkbox> -->
-          <!-- </el-form-item>
-        </el-form> -->
+          <el-form-item label="法人" prop="legalperson">
+            <el-input v-model.trim="addCompanyForm.legalperson" auto-complete="off"></el-input>
+          </el-select>
+          </el-form-item>
+        </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogOK('AccountForm')">确 定</el-button>
+          <el-button type="primary" @click="addCompanyOK">确 定</el-button>
         </div>
       </el-dialog>
       <!-- 弹框 —— end-->
@@ -92,7 +84,7 @@ export default {
   data() {
     return {
       ChannelGet: [],
-      // 呼入分析的表单
+      // 查询
       companyForm: {
         code: '',//编号
         c_name: '',//公司
@@ -101,6 +93,13 @@ export default {
       // 表格
       tableData: [],
       tableLoading: false,
+      // 新增
+      dialogFormVisible: false,
+      addCompanyForm: {
+        code: '',//编号
+        c_name: '',//公司
+        legalperson:"", //法人
+      },
       // 分页选中
       currentPage: 1,
       pageSize: 5, // 每页显示条数
@@ -121,33 +120,10 @@ export default {
       this.companyForm.currentPage = this.currentPage;
       this.getCompanyTable()
     },
-    //新增页面
-    NewlyAdded(){
-      alert("新增页面正在紧张的排版当中，请稍后......")
-    },
     // 分页变化时触发
     CurrentPageChange(val) {
       this.companyForm.currentPage = val;
       this.getCompanyTable()
-    },
-    // 删除
-    clickDel(index, row) {
-      this.$confirm('您确定要将这个公司删除吗？', '删除公司', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-
-        this.$axios.get("company_delete.action?id=" + row.id).then(response => {
-          this.$message({ message: "删除公司成功", type: 'success' });
-          this.getCompanyTable();
-        }, response => {
-          this.$message({ message: "删除公司失败：" + response, type: 'error' })
-        })
-
-      }).catch(() => {
-        this.$message({ message: '已取消删除', type: 'info', });
-      });
     },
     // 获取通话记录表格的数据
     getCompanyTable() {
@@ -169,6 +145,34 @@ export default {
       }, response => {
         this.$message({ message: "查询数据失败："+response, type: 'error', });
       })
+    },
+    //新增
+    addCompanyOK(){
+         this.$axios.post("company_delete.action?jsonData="+JSON.stringify(this.addCompanyForm)).then(response => {
+          this.$message({ message: "新增公司成功", type: 'success' });
+          this.getCompanyTable();
+        }, response => {
+          this.$message({ message: "新增公司失败：" + response, type: 'error' })
+        })
+    },
+    // 删除
+    clickDel(index, row) {
+      this.$confirm('您确定要将这个公司删除吗？', '删除公司', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+
+        this.$axios.get("company_delete.action?id=" + row.id).then(response => {
+          this.$message({ message: "删除公司成功", type: 'success' });
+          this.getCompanyTable();
+        }, response => {
+          this.$message({ message: "删除公司失败：" + response, type: 'error' })
+        })
+
+      }).catch(() => {
+        this.$message({ message: '已取消删除', type: 'info', });
+      });
     },
   },
   created() {
