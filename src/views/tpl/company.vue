@@ -140,7 +140,7 @@ export default {
 
         this.$axios.get("company_delete.action?id=" + row.id).then(response => {
           this.$message({ message: "删除公司成功", type: 'success' });
-          this.getAccount();
+          this.getCompanyTable();
         }, response => {
           this.$message({ message: "删除公司失败：" + response, type: 'error' })
         })
