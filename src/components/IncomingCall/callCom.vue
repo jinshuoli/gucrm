@@ -43,23 +43,11 @@
     <!-- 时间区域选择 —— end-->
     <!-- 表格 —— start -->
     <el-table ref="multipleTable" v-loading="tableLoading" :data="tableData" border tooltip-effect="dark" style="width: 100%">
-      <!-- <el-table-column prop="code" label="用户">
-      </el-table-column> -->
       <el-table-column prop="name" label="员工名称">
       </el-table-column>
-      <!-- <el-table-column prop="channel_name" label="渠道">
-      </el-table-column> -->
-
       <el-table-column prop="tel" label="员工号码">
-        <!-- <template scope="scope">
-          <el-tag type="primary">{{scope.row.tel}}</el-tag>
-        </template> -->
       </el-table-column>
-
       <el-table-column prop="utel" label="客户号码">
-        <!-- <template scope="scope">
-          <el-tag type="warning">{{scope.row.utel}}</el-tag>
-        </template> -->
       </el-table-column>
 
         <el-table-column label="拨打时间" width="160px">
@@ -231,7 +219,7 @@ export default {
       this.dialogAudio = true;
       // 给后台传ID，获取音频文件路径
       this.$axios.get('callRecords_audioPlayer.action?callId=' + row.callId).then(response => {
-        this.audioSrc = "/grucm/record/" + response.data;
+        this.audioSrc = "/gucrm/record/" + response.data;
         // 重载录音
         document.getElementById('audio').load()
       })

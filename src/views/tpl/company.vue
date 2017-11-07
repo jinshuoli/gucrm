@@ -53,7 +53,7 @@
       </el-col>
       <!-- 分页1 —— end-->
       <!-- 弹框 —— start-->
-      <el-dialog title="公司管理" :visible.sync="dialogFormVisible">
+      <el-dialog title="公司管理" :rules="rules" :model="addCompanyForm" ref="addCompanyForm" :visible.sync="dialogFormVisible">
         <el-form :model="addCompanyForm" :rules="rules" label-width="80px">
           <el-form-item label="公司" prop="c_name">
             <el-input v-model.trim="addCompanyForm.c_name" auto-complete="off" class="inp"></el-input>
@@ -81,7 +81,7 @@
 
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addCompanyOK">确 定</el-button>
+          <el-button type="primary" @click="addCompanyOK('addCompanyForm')">确 定</el-button>
         </div>
       </el-dialog>
       <!-- 弹框 —— end-->
@@ -111,26 +111,18 @@ export default {
       tableLoading: false,
       // 新增
       dialogFormVisible: false,
-      addCompanyForm: {
+      addCompanyForm:{
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
         linkman: "", //联系人
         linktel:"",//联系电话
+        social_code:"",  //注册号
       },
       // 分页选中
       currentPage: 1,
       pageSize: 5, // 每页显示条数
       totalrecord: 0, // 总数据条数
-      //表单验证
-      ruleForm:{
-        c_name:"",       //公司
-        code:"",         //编号
-        legalperson:"",  //法人
-        linkman:"",      //联系人
-        linktel:"",      //联系电话
-        social_code:"",  //注册号
-      },
       rules:{
         c_name:[
           { required: true, message: '请输入公司名', trigger: 'blur' }
@@ -197,14 +189,24 @@ export default {
       })
     },
     //新增
-    addCompanyOK() {
-      this.dialogFormVisible = false
+    addCompanyOK(formName) {
+      // debugger;
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit");
+        }else {
+          console.log('error submit');
+          return false;
+        }
+      })
       this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
         this.$message({ message: "新增公司成功", type: 'success' });
         this.getCompanyTable();
+
       }, response => {
         this.$message({ message: "新增公司失败：" + response, type: 'error' })
       })
+      this.dialogFormVisible = false
     },
     // 删除
     clickDel(index, row) {

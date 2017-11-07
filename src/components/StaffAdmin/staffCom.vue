@@ -78,7 +78,7 @@
       </el-table-column>
       <el-table-column prop="duty" label="职务">
       </el-table-column>
-      <el-table-column prop="code" label="用户">
+      <el-table-column prop="code" label="员工编号">
       </el-table-column>
       <el-table-column prop="org_name" label="公司">
       </el-table-column>
@@ -162,10 +162,7 @@
         </el-form-item>
         <!-- 动态添加号码 —— start -->
         <el-form-item v-for="(items,index) in AddStaffForm.numberList" :key="index">
-          <!-- <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>
-          <el-select style="width:160px;" v-model.trim="items.channelVal">
-            <el-option v-for="(item,index) in items.channel" :value="item.value" :label="item.label" :key="index"></el-option>
-          </el-select> - -->
+          <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>
           <el-input v-model.trim="items.master" style="width:160px;" placeholder="主叫">主叫</el-input> -
           <el-input v-model.trim="items.trumpet" style="width:160px;" placeholder="小号"></el-input> -
           <el-checkbox v-model.trim="items.upline">上线</el-checkbox>
@@ -182,7 +179,7 @@
     <!-- 修改员工弹框 —— start -->
     <el-dialog title="修改员工" :visible.sync="EditStaffDialog">
       <el-form :model="EditStaffV" :inline="true">
-        <el-form-item label="用户：">
+        <el-form-item label="员工：">
           <el-input v-model.trim="EditStaffForm.code" auto-complete="off" :disabled="true" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item>
@@ -200,9 +197,9 @@
         <el-form-item label="身份证">
           <el-input v-model.trim="EditStaffForm.idcard" auto-complete="off" placeholder="可选"></el-input>
         </el-form-item>
-        <el-form-item label="部门：">
+        <el-form-item label="公司：">
           【 {{EditStaffForm.org}} 】
-          <el-button auto-complete="off" @click="openTreeDialog">选择部门</el-button>
+          <el-button auto-complete="off" @click="openTreeDialog">选择公司</el-button>
         </el-form-item>
         <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(EditStaffForm.numberList)">添加号码</el-button>
@@ -251,7 +248,7 @@
     <el-dialog title="换绑" :visible.sync="changeBindDialog">
       <el-form :model="changeBindDialogFrom">
         <el-form-item label="员工编号">
-          <el-input v-model.trim="changeBindDialogFrom.code" style="width:300px;" :disabled="true" placeholder="请输入要换绑的用户名"></el-input><span> ( 必填 )</span>
+          <el-input v-model.trim="changeBindDialogFrom.code" style="width:300px;" :disabled="true" placeholder=""></el-input><span> ( 必填 )</span>
         </el-form-item>
         <el-form-item label="号码:" v-for="(item,index) in changeBindDialogFrom.subrelas" :key="index">
           <el-checkbox v-model.trim="item.isChange"></el-checkbox>
@@ -358,7 +355,7 @@ export default {
       // 换绑弹框
       changeBindDialog: false,
       changeBindDialogFrom: {
-        name: '',
+        code: '',
         subrelas: [], // 绑定号码信息
       },
       // 表格多选框的值
@@ -370,18 +367,11 @@ export default {
   methods: {
     // 添加一行小号（变异的todolist）
     AddRow(list) {
-      this.$axios.get('channel_channelList.action').then(response => { // 查询select
-        let dataArr = JSON.parse(response.data)
-        // dataArr.unshift({ "value": "call", "label": "外呼" })
-        list.push({
-          channel: dataArr,
-          channelVal: 'call',
-          master: '',
-          trumpet: '',
-          upline: '',
-        })
-        // debugger;
-      }, response => {})
+      list.push({
+        master: '',
+        trumpet: '',
+        upline: '',
+      })
     },
     // 删除一行小号
     delRow(list, row) {
@@ -568,6 +558,7 @@ export default {
     // 打开换绑弹框
     openChangeBind(i, row) {
       this.changeBindDialog = true;
+      this.changeBindDialogFrom.code = row.code;
       row.subrelas.map(r => {
         // delete r.upline
         this.$delete(r, "upline")
@@ -747,7 +738,7 @@ export default {
         // ==== 处理导出数据 === end
 
         const { export_json_to_excel } = require('@/vendor/Export2Excel');　　　　　　　　
-        const tHeader = ["姓名", "职务", "用户", "部门", "绑定信息", "权限", "状态"];
+        const tHeader = ["姓名", "职务", "员工编码", "部门", "绑定信息", "权限", "状态"];
         const filterVal = ["name", "duty", "code", "org_name", "subrelas", "data_permission", "status"];
         const data = this.formatJson(filterVal, this.exportData);　　　　　　　　
         export_json_to_excel(tHeader, data, "员工管理-员工");
