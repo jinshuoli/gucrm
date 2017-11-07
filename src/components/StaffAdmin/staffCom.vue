@@ -160,8 +160,8 @@
           <span style="color:gray">（用途-小号-被叫）</span>
         </el-form-item>
         <!-- 动态添加号码 —— start -->
-        <el-form-item v-for="(items,index) in AddStaffForm.numberList" :key="index">
-          <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>
+        <el-form-item v-for="(items,index) in EditStaffForm.numberList" :key="index">
+          <i class="el-icon-close" @click="delRow(EditStaffForm.numberList,items)"></i>
           <el-input v-model.trim="items.master" style="width:160px;" placeholder="主叫">主叫</el-input> -
           <el-input v-model.trim="items.trumpet" style="width:160px;" placeholder="小号"></el-input> -
           <el-checkbox v-model.trim="items.upline" true-label="上线" false-label="下线">上线</el-checkbox>

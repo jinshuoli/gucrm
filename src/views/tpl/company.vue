@@ -18,7 +18,7 @@
         </el-form-item>
         <el-form-item label="">
           <el-button type="primary" @click="QueryCompany">查询</el-button>
-          <el-button type="primary" @click="dialogFormVisible = true">新增</el-button>
+          <el-button type="primary" @click="AddDialogVisible = true">新增</el-button>
         </el-form-item>
       </el-form>
       <!-- 表单 ——end-->
@@ -44,7 +44,8 @@
             <el-button size="small" type="text" @click="clickDel(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
-      </el-table><br />
+      </el-table>
+      <br />
       <!-- 表格 ——end-->
       <!-- 分页1 —— start-->
       <el-col :offset="8" :span="6">
@@ -52,8 +53,8 @@
         </el-pagination>
       </el-col>
       <!-- 分页1 —— end-->
-      <!-- 弹框 —— start-->
-      <el-dialog title="公司管理" :visible.sync="dialogFormVisible">
+      <!-- 新增公司弹框 —— start-->
+      <el-dialog title="公司管理" :visible.sync="AddDialogVisible">
         <el-form :model="addCompanyForm" :rules="rules" ref="addCompanyForm" label-width="80px">
           <el-form-item label="公司" prop="c_name">
             <el-input v-model.trim="addCompanyForm.c_name" class="inp"></el-input>
@@ -79,11 +80,43 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="AddDialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="addCompanyOK('addCompanyForm')">确 定</el-button>
         </div>
       </el-dialog>
-      <!-- 弹框 —— end-->
+      <!-- 新增公司弹框 —— end-->
+      <!-- 修改公司弹框 —— start-->
+      <el-dialog title="公司管理" :visible.sync="EditDialogVisible">
+        <el-form :model="EditCompanyForm" :rules="rules" ref="EditCompanyForm" label-width="80px">
+          <el-form-item label="公司" prop="c_name">
+            <el-input v-model.trim="EditCompanyForm.c_name" class="inp"></el-input>
+          </el-form-item>
+          <el-form-item label="编号" prop="code">
+            <el-input v-model.trim="EditCompanyForm.code" class="inp"></el-input>
+          </el-form-item>
+          <el-form-item label="法人" prop="legalperson">
+            <el-input v-model.trim="EditCompanyForm.legalperson" class="inp"></el-input>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="联系人" prop="linkman">
+            <el-input v-model.trim="EditCompanyForm.linkman" class="inp"></el-input>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="联系电话" prop="linktel">
+            <el-input v-model.trim="EditCompanyForm.linktel" class="inp"></el-input>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="注册号" prop="social_code">
+            <el-input v-model.trim="EditCompanyForm.social_code" class="inp" placeholder="工商执照注册号/统一社会信用代号"></el-input>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="EditDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="EditCompanyOK('EditCompanyForm')">确 定</el-button>
+        </div>
+      </el-dialog>
+      <!-- 修改公司弹框 —— end-->
     </el-col>
   </el-row>
 </template>
@@ -104,8 +137,18 @@ export default {
       tableData: [],
       tableLoading: false,
       // 新增
-      dialogFormVisible: false,
+      AddDialogVisible: false,
       addCompanyForm: {
+        code: '', //编号
+        c_name: '', //公司
+        legalperson: "", //法人
+        linkman: "", //联系人
+        linktel: "", //联系电话
+        social_code: "", //注册号
+      },
+      // 修改
+      EditDialogVisible: false,
+      EditCompanyForm: {
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
@@ -117,6 +160,7 @@ export default {
       currentPage: 1,
       pageSize: 5, // 每页显示条数
       totalrecord: 0, // 总数据条数
+      // 表单验证
       rules: {
         c_name: [
           { required: true, message: '请输入公司名', trigger: 'blur' }
@@ -190,11 +234,32 @@ export default {
           this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
             this.$message({ message: "新增公司成功", type: 'success' });
             this.getCompanyTable();
-
+            this.$refs[formName].resetFields();
           }, response => {
             this.$message({ message: "新增公司失败：" + response, type: 'error' })
           })
-          this.dialogFormVisible = false
+          this.AddDialogVisible = false
+        } else {
+          this.$message({ message: "请正确填写公司信息！", type: 'error' })
+          return false;
+        }
+      })
+    },
+    clickEdit(i, row){
+      this.EditDialogVisible = true
+      Object.assign(this.EditCompanyForm,row)
+    },
+    EditCompanyOK(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.EditCompanyForm)).then(response => {
+            this.$message({ message: "修改公司成功", type: 'success' });
+            this.getCompanyTable();
+            this.$refs[formName].resetFields();
+          }, response => {
+            this.$message({ message: "修改公司失败：" + response, type: 'error' })
+          })
+          this.EditDialogVisible = false
         } else {
           this.$message({ message: "请正确填写公司信息！", type: 'error' })
           return false;
