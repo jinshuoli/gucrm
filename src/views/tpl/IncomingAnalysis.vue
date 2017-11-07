@@ -4,14 +4,8 @@
       <br>
       <!-- 表单 —— start-->
       <el-form ref="InboundAnalyForm" :inline="true">
-        <!-- <el-form-item label="媒体">
-          <el-select v-model.trim="InboundAnalysisForm.channelName" clearable placeholder="全部">
-            <el-option v-for="item in ChannelGet" :label="item.label" :value="item.value" :key="item.value"></el-option>
-          </el-select>
-        </el-form-item> -->
         <el-form-item label="公司">
           <el-input v-model.trim="InboundAnalysisForm.dept" style="width:225px" placeholder="按用部门查询"></el-input>
-          <!-- <a href="javaScript:void(0)" @click="openTreeDialog">选择</a> -->
         </el-form-item>
         <el-form-item label="员工">
           <el-input v-model.trim="InboundAnalysisForm.name" style="width:225px" placeholder="按用户名或用户查询"></el-input>
@@ -23,8 +17,6 @@
         <el-form-item label="">
           <el-button type="primary" @click="QueryAnalysis">统计</el-button>
           <el-button type="primary" @click="export2Excel">导出</el-button>
-          <!-- <span>不参与统计： <a href="">0条</a></span>
-          <span>无效数据： <a href="">0条</a></span> -->
         </el-form-item>
       </el-form>
       <!-- 表单 ——end-->

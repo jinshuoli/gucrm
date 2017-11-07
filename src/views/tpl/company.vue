@@ -1,7 +1,7 @@
 <!-- 公司管理页面 -->
 <template>
   <el-row>
-    <el-col :offset="1" :span="18">
+    <el-col :offset="1" :span="22">
       <br>
       <!-- 表单 —— start-->
       <h3>公司管理</h3>
@@ -44,41 +44,40 @@
             <el-button size="small" type="text" @click="clickDel(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
-      </el-table>
+      </el-table><br />
       <!-- 表格 ——end-->
       <!-- 分页1 —— start-->
-      <el-col :offset="6">
+      <el-col :offset="8" :span="6">
         <el-pagination @current-change="CurrentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="prev, pager, next, jumper,total" :total="totalrecord">
         </el-pagination>
       </el-col>
       <!-- 分页1 —— end-->
       <!-- 弹框 —— start-->
-      <el-dialog title="公司管理" :rules="rules" :model="addCompanyForm" ref="addCompanyForm" :visible.sync="dialogFormVisible">
-        <el-form :model="addCompanyForm" :rules="rules" label-width="80px">
+      <el-dialog title="公司管理" :visible.sync="dialogFormVisible">
+        <el-form :model="addCompanyForm" :rules="rules" ref="addCompanyForm" label-width="80px">
           <el-form-item label="公司" prop="c_name">
-            <el-input v-model.trim="addCompanyForm.c_name" auto-complete="off" class="inp"></el-input>
+            <el-input v-model.trim="addCompanyForm.c_name" class="inp"></el-input>
           </el-form-item>
           <el-form-item label="编号" prop="code">
-            <el-input v-model.trim="addCompanyForm.code" auto-complete="off" class="inp"></el-input>
+            <el-input v-model.trim="addCompanyForm.code" class="inp"></el-input>
           </el-form-item>
           <el-form-item label="法人" prop="legalperson">
-            <el-input v-model.trim="addCompanyForm.legalperson" auto-complete="off" class="inp"></el-input>
+            <el-input v-model.trim="addCompanyForm.legalperson" class="inp"></el-input>
             </el-select>
           </el-form-item>
           <el-form-item label="联系人" prop="linkman">
-            <el-input v-model.trim="addCompanyForm.linkman" auto-complete="off" class="inp"></el-input>
+            <el-input v-model.trim="addCompanyForm.linkman" class="inp"></el-input>
             </el-select>
           </el-form-item>
           <el-form-item label="联系电话" prop="linktel">
-            <el-input v-model.trim="addCompanyForm.linktel" auto-complete="off" class="inp"></el-input>
+            <el-input v-model.trim="addCompanyForm.linktel" class="inp"></el-input>
             </el-select>
           </el-form-item>
           <el-form-item label="注册号" prop="social_code">
-            <el-input v-model.trim="addCompanyForm.social_code" auto-complete="off" class="inp" placeholder="工商执照注册号/统一社会信用代号"></el-input>
+            <el-input v-model.trim="addCompanyForm.social_code" class="inp" placeholder="工商执照注册号/统一社会信用代号"></el-input>
             </el-select>
           </el-form-item>
         </el-form>
-
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="addCompanyOK('addCompanyForm')">确 定</el-button>
@@ -89,12 +88,7 @@
   </el-row>
 </template>
 <script>
-import treeMenu from '@/components/selectSector'
-
 export default {
-  components: {
-    treeMenu,
-  },
   data() {
     return {
       ChannelGet: [],
@@ -104,49 +98,49 @@ export default {
         c_name: '', //公司
         legalperson: "", //法人
         linkman: "", //联系人
-        linktel:"",//联系电话
+        linktel: "", //联系电话
       },
       // 表格
       tableData: [],
       tableLoading: false,
       // 新增
       dialogFormVisible: false,
-      addCompanyForm:{
+      addCompanyForm: {
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
         linkman: "", //联系人
-        linktel:"",//联系电话
-        social_code:"",  //注册号
+        linktel: "", //联系电话
+        social_code: "", //注册号
       },
       // 分页选中
       currentPage: 1,
       pageSize: 5, // 每页显示条数
       totalrecord: 0, // 总数据条数
-      rules:{
-        c_name:[
+      rules: {
+        c_name: [
           { required: true, message: '请输入公司名', trigger: 'blur' }
         ],
-      code: [
+        code: [
           { required: true, message: '请输入编号', trigger: 'blur' },
           { min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur' }
-      ],
-      legalperson: [
+        ],
+        legalperson: [
           { required: true, message: '请输入法人姓名', trigger: 'blur' },
           { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
-      ],
-      linkman: [
+        ],
+        linkman: [
           { required: true, message: '请输入联系人', trigger: 'blur' },
           { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
-      ],
-      linktel: [
+        ],
+        linktel: [
           { required: true, message: '请输入联系人电话', trigger: 'blur' },
           { min: 11, max: 11, message: '长度位11位手机号', trigger: 'blur' }
-      ],
-      social_code: [
+        ],
+        social_code: [
           { required: true, message: '请输入工商执照注册号', trigger: 'blur' },
           { min: 11, max: 11, message: '长度位11位手机号', trigger: 'blur' }
-      ]
+        ]
 
       }
     };
@@ -193,20 +187,19 @@ export default {
       // debugger;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit");
-        }else {
-          console.log('error submit');
+          this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
+            this.$message({ message: "新增公司成功", type: 'success' });
+            this.getCompanyTable();
+
+          }, response => {
+            this.$message({ message: "新增公司失败：" + response, type: 'error' })
+          })
+          this.dialogFormVisible = false
+        } else {
+          this.$message({ message: "请正确填写公司信息！", type: 'error' })
           return false;
         }
       })
-      this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
-        this.$message({ message: "新增公司成功", type: 'success' });
-        this.getCompanyTable();
-
-      }, response => {
-        this.$message({ message: "新增公司失败：" + response, type: 'error' })
-      })
-      this.dialogFormVisible = false
     },
     // 删除
     clickDel(index, row) {
@@ -236,7 +229,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.inp{
+.inp {
   width: 80%;
 }
 

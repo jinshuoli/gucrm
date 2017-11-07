@@ -1,74 +1,30 @@
 <!-- 这是员工管理的员工 -->
 <template>
   <div>
-    <!-- <p> 部门 【 {{staffForm.org}} 】 <a href="javaScript:void(0)" @click="openTreeDialog">选择</a> </p> -->
-    <!-- 部门选择树 —— start -->
-    <tree-menu :dialogState="isTreeDialog" ref="postinfo" @on-close="closeDialog" @post-node="getNodes"></tree-menu>
-    <!-- 部门选择树 —— end -->
+    <br>
     <!-- 查询项的表单 —— start -->
-    <el-form ref="staffform">
+    <el-form ref="staffform" :inline="true">
       <el-form-item>
-        <!-- <el-select v-model.trim="staffForm.duty" clearable placeholder="全部职务">
-          <el-option v-for="item in dutyGet" :label="item.label" :value="item.label" :key="item.value">
-          </el-option>
-        </el-select>
-        <el-select v-model.trim="staffForm.power" placeholder="全部权限">
-          <el-option label="全部权限" value="all"></el-option>
-          <el-option label="有" value="1"></el-option>
-          <el-option label="无" value="0"></el-option>
-        </el-select> -->
         <el-select v-model.trim="staffForm.state" placeholder="全部状态">
           <el-option label="全部状态" value="all"></el-option>
           <el-option label="正常" value="V"></el-option>
           <el-option label="冻结" value="I"></el-option>
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="小号">
-        <el-select v-model.trim="staffForm.channel" clearable placeholder="不计渠道">
-          <el-option v-for="item in ChannelGet" :label="item.label" :value="item.value" :key="item.value">
-          </el-option>
-        </el-select>
-        <el-select v-model.trim="staffForm.outbound" placeholder="不计外呼">
-          <el-option label="不计外呼" value="nothing"></el-option>
-          <el-option label="有外呼" value="Y"></el-option>
-          <el-option label="无外呼" value="N"></el-option>
-        </el-select>//需要注释掉的
-      </el-form-item> -->
-    </el-form>
-    <el-row>
-      <el-col :span="5">
+      <el-form-item>
         <el-select v-model.trim="staffForm.Name" placeholder="姓名">
           <el-option label="姓名" value="name"></el-option>
         </el-select>
-      </el-col>
-      <el-col :span="5">
+      </el-form-item>
+      <el-form-item>
         <el-input v-model.trim="staffForm.nameOrNum" placeholder="请输入用姓名或号码"></el-input>
-      </el-col>
-      <el-col :span="5">
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="queryStaff">查询</el-button>
-        <!-- <el-dropdown>
-          <el-button type="primary">
-            操作<i class="el-icon-caret-bottom el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown" style="">
-            <el-dropdown-item><p @click="freeze">冻结</p></el-dropdown-item>
-            <el-dropdown-item><p @click="unfreeze">解冻</p></el-dropdown-item>
-            <el-dropdown-item><p @click="upLine">上线</p></el-dropdown-item>
-            <el-dropdown-item><p @click="downLine">下线</p></el-dropdown-item>
-            <el-dropdown-item><p @click="export2Excel">导出</p></el-dropdown-item>
-            <el-dropdown-item><p @click="unAllBind">解绑</p></el-dropdown-item>
-            <el-dropdown-item><p @click="AllDel">删除</p></el-dropdown-item>
-            <el-dropdown-item><p @click="changeDept">更换部门</p></el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown> -->
-      </el-col>
-      <el-col :offset="3" :span="5">
         <el-button type="primary" @click="AddStaffDialog = true">新增</el-button>
         <el-button type="primary" @click="dialogImportFile = true">导入</el-button>
-        <!-- <el-button type="primary">删除</el-button> -->
-      </el-col>
-    </el-row>
-    <br>
+      </el-form-item>
+    </el-form>
     <!-- 查询项的表单 —— end -->
     <!-- 表格 ——start-->
     <el-table ref="multipleTable" v-loading="tableLoading" :data="tableData" border tooltip-effect="dark" style="width: 100%" @selection-change="tableSelectionChange">
@@ -97,7 +53,6 @@
               </p>
             </template>
             <div slot="reference" class="name-wrapper">
-              <!-- <el-tag>号码关系</el-tag> -->
               <el-tag :class="{ 'active-wrapper': scope.row.subrelas.length >= 1}">号码关系</el-tag>
             </div>
           </el-popover>
@@ -174,7 +129,6 @@
         <el-button type="primary" @click="AddStaff">确 定</el-button>
       </div>
     </el-dialog>
-
     <!-- 新增员工弹框 —— end -->
     <!-- 修改员工弹框 —— start -->
     <el-dialog title="修改员工" :visible.sync="EditStaffDialog">
@@ -208,9 +162,6 @@
         <!-- 动态添加号码 —— start -->
         <el-form-item v-for="(items,index) in AddStaffForm.numberList" :key="index">
           <i class="el-icon-close" @click="delRow(AddStaffForm.numberList,items)"></i>
-          <el-select style="width:160px;" v-model.trim="items.channelVal" placeholder="外呼">
-            <el-option v-for="(item,index) in items.channel" :value="item.value" :label="item.label" :key="index"></el-option>
-          </el-select> -
           <el-input v-model.trim="items.master" style="width:160px;" placeholder="主叫">主叫</el-input> -
           <el-input v-model.trim="items.trumpet" style="width:160px;" placeholder="小号"></el-input> -
           <el-checkbox v-model.trim="items.upline" true-label="上线" false-label="下线">上线</el-checkbox>
@@ -252,13 +203,9 @@
         </el-form-item>
         <el-form-item label="号码:" v-for="(item,index) in changeBindDialogFrom.subrelas" :key="index">
           <el-checkbox v-model.trim="item.isChange"></el-checkbox>
-
           <!-- <el-input v-model.trim="item.channelName" :disabled="true" style="width:160px;"></el-input> -->
-
           <el-input v-model.trim="item.anum" style="width:160px;"></el-input>
-
           <el-input v-model.trim="item.xnum" :disabled="true" style="width:160px;"></el-input>
-
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -424,13 +371,13 @@ export default {
       this.getStaffTable()
     },
     // 此方法将被父组件触发
-    searchTable(data){
+    searchTable(data) {
       console.log(data)
-          let staffPage = JSON.parse(data)
-          this.pageSize = +staffPage.page_size; // 每页显示条数
-          this.totalrecord = +staffPage.totalrecord; // 总数据条数
-          let staffData = staffPage.records;
-          this.tableData = staffData; // 表格数据
+      let staffPage = JSON.parse(data)
+      this.pageSize = +staffPage.page_size; // 每页显示条数
+      this.totalrecord = +staffPage.totalrecord; // 总数据条数
+      let staffData = staffPage.records;
+      this.tableData = staffData; // 表格数据
     },
     // 获取号码表格的数据
     getStaffTable() {
@@ -495,23 +442,15 @@ export default {
       this.EditStaffForm.name = row.name;
       this.EditStaffForm.duty = row.duty;
       this.EditStaffForm.idcard = row.idcard;
-      // 添加小号部分：设置默认值&&获取渠道的下拉框值
+
       this.EditStaffForm.numberList = [];
-      if (this.EditStaffForm.numberList.length === 0) {
-        this.$axios.get('channel_channelList.action').then(response => {
-          let dataArr = JSON.parse(response.data)
-          dataArr.unshift({ "value": "call", "label": "外呼" })
-          let subrelas = row.subrelas.map(d => {
-            this.EditStaffForm.numberList.push({
-              channel: dataArr,
-              channelVal: d.channelId,
-              master: d.anum,
-              trumpet: d.xnum,
-              upline: d.upline,
-            })
-          })
-        }, response => {})
-      }
+      row.subrelas.map(d => {
+        this.EditStaffForm.numberList.push({
+          master: d.anum,
+          trumpet: d.xnum,
+          upline: d.upline,
+        })
+      })
     },
     // 确认修改
     enterEditStaff() {
@@ -784,9 +723,11 @@ export default {
 .el-dropdown-menu__item>p {
   margin: 0px;
 }
-.active-wrapper{
+
+.active-wrapper {
   background-color: #F7BA2A;
 }
+
 .el-icon-close:hover {
   color: red;
   cursor: pointer;

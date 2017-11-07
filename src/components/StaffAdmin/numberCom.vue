@@ -1,48 +1,25 @@
 <!-- 这是员工管理的号码 -->
 <template>
   <div>
-    <el-form ref="Nstateform">
-      <el-form-item label="状态">
+    <br>
+    <el-form ref="Nstateform" :inline="true">
+      <el-form-item>
         <el-select v-model.trim="numberForm.state" placeholder="全部状态">
           <el-option label="全部状态" value="all"></el-option>
           <el-option label="使用" value="V"></el-option>
           <el-option label="未使用" value="I"></el-option>
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="小号">
-        <el-select v-model.trim="numberForm.trumpet" placeholder="上线和下线">
-          <el-option label="上线和下线" value="all"></el-option>
-          <el-option label="上线" value="V"></el-option>
-          <el-option label="下线" value="I"></el-option>
-        </el-select>
-        <el-select v-model.trim="numberForm.bind" placeholder="不计绑定">
-          <el-option label="不计绑定" value="nothing"></el-option>
-          <el-option label="换绑定" value="C"></el-option>
-          <el-option label="无绑定" value="N"></el-option>
-        </el-select>//需要注释掉
-      </el-form-item> -->
-      <!-- <el-form-item label="用途">
-        <el-select v-model.trim="numberForm.channel" clearable placeholder="不计渠道">
-          <el-option v-for="item in ChannelGet" :label="item.label" :value="item.value" :key="item.value"></el-option>
-        </el-select>
-        <el-select v-model.trim="numberForm.Outbound" placeholder="不计外呼">
-          <el-option label="不计外呼" value="nothing"></el-option>
-          <el-option label="有外呼" value="Y"></el-option>
-          <el-option label="无外呼" value="N"></el-option>
-        </el-select>
-      </el-form-item> -->
-    </el-form>
-    <el-row>
-      <el-col :span="5">
+      <el-form-item>
         <el-select v-model.trim="numberForm.nameOrNum" placeholder="名称">
           <el-option label="名称" value="name"></el-option>
           <el-option label="号码" value="number"></el-option>
         </el-select>
-      </el-col>
-      <el-col :span="5">
+      </el-form-item>
+      <el-form-item>
         <el-input v-model.trim="numberForm.UnameOrNum" placeholder="请输入用户名或号码"></el-input>
-      </el-col>
-      <el-col :span="5">
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="queryNumber">查询</el-button>
         <!-- <el-dropdown>
           <el-button type="primary">
@@ -57,14 +34,13 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown> -->
-      </el-col>
-      <!-- <el-col :offset="1" :span="8">
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="NewAddNumber">新增</el-button>
         <el-button type="primary" @click="openUpFileDialog(1)">渠道分配</el-button>
         <el-button type="primary" @click="openUpFileDialog(2)">外呼分配</el-button>
-      </el-col> -->
-    </el-row>
-    <br>
+      </el-form-item>
+    </el-form>
     <!-- 渠道分配 && 外呼分配 弹框 ——start-->
     <el-dialog title="号码分配" :visible.sync="dialogUpFile">
       <el-form :model="uploadFile">
