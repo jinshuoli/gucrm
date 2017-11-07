@@ -13,7 +13,6 @@
       <el-form-item>
         <el-select v-model.trim="numberForm.nameOrNum" placeholder="名称">
           <el-option label="名称" value="name"></el-option>
-          <el-option label="号码" value="number"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -35,11 +34,11 @@
           </el-dropdown-menu>
         </el-dropdown> -->
       </el-form-item>
-      <el-form-item>
+      <!-- <el-form-item>
         <el-button type="primary" @click="NewAddNumber">新增</el-button>
         <el-button type="primary" @click="openUpFileDialog(1)">渠道分配</el-button>
         <el-button type="primary" @click="openUpFileDialog(2)">外呼分配</el-button>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <!-- 渠道分配 && 外呼分配 弹框 ——start-->
     <el-dialog title="号码分配" :visible.sync="dialogUpFile">

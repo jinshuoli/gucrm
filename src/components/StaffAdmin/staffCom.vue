@@ -22,7 +22,7 @@
       <el-form-item>
         <el-button type="primary" @click="queryStaff">查询</el-button>
         <el-button type="primary" @click="AddStaffDialog = true">新增</el-button>
-        <el-button type="primary" @click="dialogImportFile = true">导入</el-button>
+        <!-- <el-button type="primary" @click="dialogImportFile = true">导入</el-button> -->
       </el-form-item>
     </el-form>
     <!-- 查询项的表单 —— end -->
