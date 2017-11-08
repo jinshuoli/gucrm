@@ -30,7 +30,7 @@
           <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
         </el-table-column>
         <el-table-column prop="state" label="审核状态">
-          <template scope="scope" >
+          <template scope="scope">
             <span v-if="scope.row.state==='S'">审核成功</span>
             <span v-else-if="scope.row.state==='M'">审核中</span>
             <span v-else="scope.row.state==='F'">审核失败</span>
@@ -251,9 +251,14 @@ export default {
     },
     clickEdit(i, row) {
       this.EditDialogVisible = true
-      for (key in this.EditCompanyForm) {
-        this.EditCompanyForm[key] = row[key]
-      }
+      this.EditCompanyForm.c_name = row.c_name
+      this.EditCompanyForm.code = row.code
+      this.EditCompanyForm.status = row.status
+      this.EditCompanyForm.state = row.state
+      this.EditCompanyForm.social_code = row.social_code
+      this.EditCompanyForm.legalperson = row.legalperson
+      this.EditCompanyForm.linkman = row.linkman
+      this.EditCompanyForm.linktel = row.linktel
     },
     EditCompanyOK(formName) {
       this.$refs[formName].validate((valid) => {
