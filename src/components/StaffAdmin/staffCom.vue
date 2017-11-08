@@ -412,13 +412,9 @@ export default {
         this.AddStaffDialog = false;
         try {
           let returnInfo = JSON.parse(response.data)
-          if (typeof returnInfo.result === "string") {
-            this.$message({ message: returnInfo.result, type: 'success', });
-            return;
-          }
-          this.$message({ message: "新增成功！", type: 'success', });
+          this.$message({ message: returnInfo.message, type: returnInfo.type, });
         } catch (e) {
-          this.$message({ message: "亲！没有新增成功哟！", type: 'info', });
+          this.$message({ message: "新增失败：return data error", type: 'error', });
         }
         this.queryStaff();
       }, response => {
@@ -465,11 +461,7 @@ export default {
         console.log(response.data)
         try {
           let returnInfo = JSON.parse(response.data)
-          if (typeof returnInfo.result === "string") {
-            this.$message({ message: returnInfo.result, type: 'error', });
-            return;
-          }
-          this.$message({ message: "修改成功！", type: 'success', });
+          this.$message({ message: returnInfo.message, type: returnInfo.type });
         } catch (e) {
           this.$message({ message: "修改失败：return data error", type: 'error', });
         }
@@ -520,12 +512,7 @@ export default {
       }).then(() => {
         this.$axios.get('staff_changeBinding.action?jsonData=' + JSON.stringify(this.changeBindDialogFrom)).then(response => {
           let resInfo = JSON.parse(response.data)
-          if (typeof resInfo.result == 'string') {
-            this.$message({ message: "换绑失败," + resInfo.result, type: 'error', });
-            return;
-          } else {
-            this.$message({ message: "换绑成功！", type: 'success', });
-          }
+          this.$message({ message: "换绑失败" + resInfo.result, type: 'error', });
           this.queryStaff();
         }, response => {
           this.$message({ message: "换绑失败：" + response, type: 'error', });

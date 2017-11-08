@@ -10,7 +10,7 @@ import axios from 'axios'
 
 // axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = process.env.BASE_API; // 不用手动了
+axios.defaults.baseURL = process.env.BASE_API;
 
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios

@@ -117,7 +117,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="录音">
-            <el-checkbox label="是否录音" v-model.trim="EditCompanyForm.callrecording" :true-label="1" :false-label="0"></el-checkbox>
+            <el-checkbox label="是否录音" v-model.trim="EditCompanyForm.callrecording" true-label="1" false-label="0"></el-checkbox>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -166,7 +166,7 @@ export default {
         linkman: "", //联系人
         linktel: "", //联系电话
         social_code: "", //注册号
-        callrecording: 0
+        callrecording: '0'
       },
       // 分页选中
       currentPage: 1,
