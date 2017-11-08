@@ -42,8 +42,7 @@ export default {
       },
       rules: {
         userName: [
-          { validator: validateName, trigger: 'blur' },
-          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { validator: validateName, trigger: 'blur' }
         ],
         pass: [
           { validator: validatePass, trigger: 'blur' }

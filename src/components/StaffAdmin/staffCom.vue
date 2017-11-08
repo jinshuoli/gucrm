@@ -402,7 +402,7 @@ export default {
     // ===== 新增
     // 点击新增确定
     AddStaff() {
-      console.log("发给后台的数据---------", JSON.stringify(this.AddStaffForm))
+      console.log( JSON.stringify(this.AddStaffForm)
       this.$axios.get('staff_add.action?jsonData=' + JSON.stringify(this.AddStaffForm)).then(response => {
         this.AddStaffDialog = false;
         try {

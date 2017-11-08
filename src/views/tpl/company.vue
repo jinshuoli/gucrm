@@ -26,13 +26,14 @@
       <el-table ref="multipleTable" v-loading="tableLoading" :data="tableData" border tooltip-effect="dark" style="width: 100%">
         <el-table-column prop="c_name" label="公司名称"></el-table-column>
         <el-table-column prop="code" label="公司编码"></el-table-column>
-        <el-table-column prop="descry" label="公司简称">
-        </el-table-column>
         <el-table-column prop="status" label="公司状态">
           <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
         </el-table-column>
-        <el-table-column prop="state" label="审核状态"> </el-table-column>
-        <el-table-column prop="business_licence" label="营业执照副本"> </el-table-column>
+        <el-table-column prop="state" label="审核状态">
+           <!-- <template scope="scope" v-if="scope.row.state==='S'">审核成功</template>
+           <template scope="scope" v-else="scope.row.state==='M'">审核中</template>
+           <template scope="scope" v-else="scope.row.state==='F'">审核失败</template> -->
+        </el-table-column>
         <el-table-column prop="social_code" label="工商执照注册号">
         </el-table-column>
         <el-table-column prop="legalperson" label="企业法人"> </el-table-column>
@@ -127,6 +128,7 @@ export default {
       ChannelGet: [],
       // 查询
       companyForm: {
+        id:"",//公司id
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
@@ -149,6 +151,7 @@ export default {
       // 修改
       EditDialogVisible: false,
       EditCompanyForm: {
+        id:"",//公司id
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
@@ -182,8 +185,7 @@ export default {
           { min: 11, max: 11, message: '长度位11位手机号', trigger: 'blur' }
         ],
         social_code: [
-          { required: true, message: '请输入工商执照注册号', trigger: 'blur' },
-          { min: 11, max: 11, message: '长度位11位手机号', trigger: 'blur' }
+          { required: true, message: '请输入工商执照注册号', trigger: 'blur' }
         ]
 
       }
@@ -252,7 +254,7 @@ export default {
     EditCompanyOK(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.EditCompanyForm)).then(response => {
+          this.$axios.post("company_updateCompany.action?jsonData=" + JSON.stringify(this.EditCompanyForm)).then(response => {
             this.$message({ message: "修改公司成功", type: 'success' });
             this.getCompanyTable();
             this.$refs[formName].resetFields();
@@ -273,7 +275,6 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-
         this.$axios.get("company_delete.action?id=" + row.id).then(response => {
           this.$message({ message: "删除公司成功", type: 'success' });
           this.getCompanyTable();
