@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      console.log(process.env)
       // console.log(this.loginForm)
       this.$refs.loginForm.validate((valid) => {
         if (valid) {

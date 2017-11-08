@@ -26,7 +26,7 @@
       <el-table ref="multipleTable" v-loading="tableLoading" :data="tableData" border tooltip-effect="dark" style="width: 100%">
         <el-table-column prop="c_name" label="公司名称"></el-table-column>
         <el-table-column prop="code" label="公司编码"></el-table-column>
-        <el-table-column prop="status" label="公司状态">
+        <el-table-column label="公司状态">
           <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
         </el-table-column>
         <el-table-column prop="state" label="审核状态">
@@ -39,6 +39,9 @@
         <el-table-column prop="social_code" label="工商执照注册号">
         </el-table-column>
         <el-table-column prop="legalperson" label="企业法人"> </el-table-column>
+        <el-table-column label="录音">
+          <template scope="scope">{{ scope.row.callrecording==='1'?'是':'否' }}</template>
+        </el-table-column>
         <el-table-column prop="linkman" label="联系人"> </el-table-column>
         <el-table-column prop="linktel" label="联系电话"> </el-table-column>
         <el-table-column label="操作" width="200px">
@@ -113,6 +116,9 @@
             <el-input v-model.trim="EditCompanyForm.social_code" class="inp" placeholder="工商执照注册号/统一社会信用代号"></el-input>
             </el-select>
           </el-form-item>
+          <el-form-item label="录音">
+            <el-checkbox label="是否录音" v-model.trim="EditCompanyForm.callrecording" :true-label="1" :false-label="0"></el-checkbox>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="EditDialogVisible = false">取 消</el-button>
@@ -160,6 +166,7 @@ export default {
         linkman: "", //联系人
         linktel: "", //联系电话
         social_code: "", //注册号
+        callrecording: 0
       },
       // 分页选中
       currentPage: 1,
@@ -251,6 +258,7 @@ export default {
     },
     clickEdit(i, row) {
       this.EditDialogVisible = true
+      this.EditCompanyForm.id = row.id
       this.EditCompanyForm.c_name = row.c_name
       this.EditCompanyForm.code = row.code
       this.EditCompanyForm.status = row.status
@@ -259,6 +267,7 @@ export default {
       this.EditCompanyForm.legalperson = row.legalperson
       this.EditCompanyForm.linkman = row.linkman
       this.EditCompanyForm.linktel = row.linktel
+      this.EditCompanyForm.callrecording = row.callrecording
     },
     EditCompanyOK(formName) {
       this.$refs[formName].validate((valid) => {
