@@ -2,6 +2,7 @@
 <template>
   <div>
     <br>
+    <!-- <p> 部门 【 {{staffForm.org}} 】 <a href="javaScript:void(0)" @click="openTreeDialog('search')">选择</a> </p> -->
     <!-- 查询项的表单 —— start -->
     <el-form ref="staffform" :inline="true">
       <el-form-item>
@@ -109,7 +110,7 @@
         </el-form-item>
         <el-form-item label="公司：">
           【 {{AddStaffForm.org}} 】
-          <el-button auto-complete="off" @click="openTreeDialog">选择公司</el-button>
+          <el-button auto-complete="off" @click="openTreeDialog('add')">选择公司</el-button>
         </el-form-item>
         <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(AddStaffForm.numberList)">添加号码</el-button>
@@ -153,7 +154,7 @@
         </el-form-item>
         <el-form-item label="公司：">
           【 {{EditStaffForm.org}} 】
-          <el-button auto-complete="off" @click="openTreeDialog">选择公司</el-button>
+          <el-button auto-complete="off" @click="openTreeDialog('edit')">选择公司</el-button>
         </el-form-item>
         <el-form-item label="号码：">
           <el-button auto-complete="off" icon="plus" @click="AddRow(EditStaffForm.numberList)">添加号码</el-button>
@@ -214,6 +215,9 @@
       </div>
     </el-dialog>
     <!-- 换绑 弹框 ——end-->
+       <!-- 部门选择树(查询，新增，修改) —— start -->
+    <tree-menu :dialogState="isTreeDialog" ref="postinfo" @on-close="closeDialog" @post-node="getNodes"></tree-menu>
+    <!-- 部门选择树(查询，新增，修改) —— end -->
     <!-- 部门选择树(更换部门时触发) —— start -->
     <tree-menu :dialogState="isChangeDeptTreeDialog" ref="postChangeDept" @on-close="closeDialog" @post-node="getChangeDeptNodes"></tree-menu>
     <!-- 部门选择树(更换部门时触发) —— end -->
@@ -338,26 +342,28 @@ export default {
       })
     },
     // ******* 员工 *********
-    // 部门选择
-    openTreeDialog() { // 打开部门树
+    // -------部门树--------start
+    openTreeDialog(param) { // 打开部门树
       this.isTreeDialog = true;
+      this.isSearchAddEditTree = param;
       this.$refs.postinfo.TreeQuery(); // 触发查询部门树的方法
     },
     closeDialog() { // 关闭部门树
       this.isTreeDialog = false;
-      this.isChangeDeptTreeDialog = false;
+      this.isChangeDeptTreeDialog = false;    // 更换部门的树弹框
     },
     getNodes(nodes) {
       this.isTreeDialog = false;
-      // 查询
-      this.staffForm.org = nodes[0].name
-      this.staffForm.orgId = nodes[0].value
-      // 新增
-      this.AddStaffForm.org = nodes[0].name
-      this.AddStaffForm.orgId = nodes[0].value
-      // 修改
-      this.EditStaffForm.org = nodes[0].name
-      this.EditStaffForm.orgId = nodes[0].value
+      if (this.isSearchAddEditTree === 'search') {          // 查询
+        this.staffForm.org = nodes[0].name;
+        this.staffForm.orgId = nodes[0].value;
+      }else if (this.isSearchAddEditTree === 'add') {       // 新增
+        this.AddStaffForm.org = nodes[0].name;
+        this.AddStaffForm.orgId = nodes[0].value;
+      }else if (this.isSearchAddEditTree === 'edit') {       // 修改
+        this.EditStaffForm.org = nodes[0].name;
+        this.EditStaffForm.orgId = nodes[0].value;
+      }
     },
     // 查询
     // 查询号码

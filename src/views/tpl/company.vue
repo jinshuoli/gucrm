@@ -30,9 +30,11 @@
           <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
         </el-table-column>
         <el-table-column prop="state" label="审核状态">
-          <!-- <template scope="scope" v-if="scope.row.state==='S'">审核成功</template>
-           <template scope="scope" v-else="scope.row.state==='M'">审核中</template>
-           <template scope="scope" v-else="scope.row.state==='F'">审核失败</template> -->
+          <template scope="scope" >
+            <span v-if="scope.row.state==='S'">审核成功</span>
+            <span v-else-if="scope.row.state==='M'">审核中</span>
+            <span v-else="scope.row.state==='F'">审核失败</span>
+          </template>
         </el-table-column>
         <el-table-column prop="social_code" label="工商执照注册号">
         </el-table-column>
