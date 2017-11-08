@@ -30,7 +30,7 @@
           <template scope="scope">{{ scope.row.status==='V'?'有效':'无效' }}</template>
         </el-table-column>
         <el-table-column prop="state" label="审核状态">
-           <!-- <template scope="scope" v-if="scope.row.state==='S'">审核成功</template>
+          <!-- <template scope="scope" v-if="scope.row.state==='S'">审核成功</template>
            <template scope="scope" v-else="scope.row.state==='M'">审核中</template>
            <template scope="scope" v-else="scope.row.state==='F'">审核失败</template> -->
         </el-table-column>
@@ -128,7 +128,7 @@ export default {
       ChannelGet: [],
       // 查询
       companyForm: {
-        id:"",//公司id
+        id: "", //公司id
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
@@ -151,7 +151,7 @@ export default {
       // 修改
       EditDialogVisible: false,
       EditCompanyForm: {
-        id:"",//公司id
+        id: "", //公司id
         code: '', //编号
         c_name: '', //公司
         legalperson: "", //法人
@@ -247,9 +247,11 @@ export default {
         }
       })
     },
-    clickEdit(i, row){
+    clickEdit(i, row) {
       this.EditDialogVisible = true
-      Object.assign(this.EditCompanyForm,row)
+      for (key in this.EditCompanyForm) {
+        this.EditCompanyForm[key] = row[key]
+      }
     },
     EditCompanyOK(formName) {
       this.$refs[formName].validate((valid) => {

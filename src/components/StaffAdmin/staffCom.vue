@@ -402,7 +402,6 @@ export default {
     // ===== 新增
     // 点击新增确定
     AddStaff() {
-      console.log( JSON.stringify(this.AddStaffForm)
       this.$axios.get('staff_add.action?jsonData=' + JSON.stringify(this.AddStaffForm)).then(response => {
         this.AddStaffDialog = false;
         try {
@@ -418,7 +417,7 @@ export default {
         this.queryStaff();
       }, response => {
         this.AddStaffDialog = false;
-        this.$message({ message: "亲！没有新增成功哟！" + response, type: 'error', });
+        this.$message({ message: "亲！没有新增成功哟！" + response, type: 'error' });
       })
     },
     // 导入员工文件
