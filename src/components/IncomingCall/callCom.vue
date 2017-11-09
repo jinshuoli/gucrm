@@ -63,12 +63,12 @@
         <el-table-column label="录音" width="80px">
           <template scope="scope">
             <el-tooltip class="item" effect="dark" content="无录音" placement="left-start ">
-              <el-button v-if="scope.row.callDuration <= 0" size="small" :plain="true" :disabled="true">
+              <el-button v-if="scope.row.callrecording <= 0" size="small" :plain="true" :disabled="true">
                 <i class="fa fa-pause-circle fa-2x" aria-hidden="true"></i>
               </el-button>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="播放录音" placement="right-start ">
-              <el-button v-if="scope.row.callDuration > 0" size="small" @click="playAudio(scope.$index, scope.row)">
+              <el-button v-if="scope.row.callrecording > 0" size="small" @click="playAudio(scope.$index, scope.row)">
                 <i class="fa fa-play-circle fa-2x" aria-hidden="true"></i>
               </el-button>
             </el-tooltip>

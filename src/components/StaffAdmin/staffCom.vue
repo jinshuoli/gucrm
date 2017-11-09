@@ -67,7 +67,7 @@
       <el-table-column label="状态">
         <template scope="scope">{{ scope.row.status==='V' ?'正常':'冻结' }}</template>
       </el-table-column>
-      <el-table-column label="操作" width="250">
+      <el-table-column label="操作" fiexd="right" width="250">
         <template scope="scope">
           <el-button size="small" type="text" @click="openEditStaff(scope.$index, scope.row)">编辑</el-button>
           <el-button size="small" type="text" @click="unBind(scope.$index, scope.row)">解绑</el-button>
@@ -90,8 +90,8 @@
     <!-- 新增员工弹框 —— start -->
     <el-dialog title="新增员工" :visible.sync="AddStaffDialog">
       <el-form :model="AddStaffV" :inline="true">
-        <el-form-item label="用户：">
-          <el-input v-model.trim="AddStaffForm.code" auto-complete="off" placeholder="请输入用户名"></el-input>
+        <el-form-item label="员工：">
+          <el-input v-model.trim="AddStaffForm.code" auto-complete="off" placeholder="请输入员工电话号码"></el-input>
         </el-form-item>
         <el-form-item>
           <!-- <el-checkbox v-model.trim="AddStaffForm.power" :true-label="1" :false-label="0">权限</el-checkbox> -->

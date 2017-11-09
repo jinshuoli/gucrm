@@ -44,7 +44,7 @@
         </el-table-column>
         <el-table-column prop="linkman" label="联系人"> </el-table-column>
         <el-table-column prop="linktel" label="联系电话"> </el-table-column>
-        <el-table-column label="操作" width="200px">
+        <el-table-column fiexd="right" label="操作" width="200">
           <template scope="scope">
             <el-button size="small" type="text" @click="clickEdit(scope.$index, scope.row)">修改</el-button>
             <el-button size="small" type="text" @click="clickDel(scope.$index, scope.row)">删除</el-button>
