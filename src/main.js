@@ -11,6 +11,8 @@ import axios from 'axios'
 // axios.defaults.withCredentials = true;
 
 axios.defaults.baseURL = process.env.BASE_API;
+axios.defaults.headers.Accept = 'application/x-www-form-urlencoded;charset=UTF-8';//防止乱码
+
 
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios

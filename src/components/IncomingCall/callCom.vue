@@ -52,7 +52,8 @@
 
         <el-table-column label="拨打时间" width="160px">
           <template scope="scope">
-            {{scope.row.call_time.time | dateFormat}}
+            <!-- {{scope.row.call_time.time | dateFormat}} -->
+            {{scope.row.call_time}}
           </template>
         </el-table-column>
       <template v-hide="!callLogForm.isDiff">
@@ -205,8 +206,8 @@ export default {
     export2Excel() {　　　　　　
       require.ensure([], () => {　　　　　　　　
         const { export_json_to_excel } = require('@/vendor/Export2Excel');
-        const tHeader = ["员工名称", "员工号码", "客户号码", "拨打时间", "时长", "状态", "录音"];　　　　　　　　
-        const filterVal = ["name", "tel", "utel", "call_time", "duration", "state", ""];　　　　　　　　　　　　
+        const tHeader = ["员工名称", "员工号码", "客户号码", "拨打时间", "时长", "状态"];　　　　　　　　
+        const filterVal = ["name", "tel", "utel", "call_time", "duration", "csName"];　　　　　　　　　　　　
         const data = this.formatJson(filterVal, this.tableData);　　　　　　　　
         export_json_to_excel(tHeader, data, "通话记录");
       })　　　　

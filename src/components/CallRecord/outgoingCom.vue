@@ -16,7 +16,8 @@
       </el-table-column>
       <el-table-column width="200px" label="拨打时间">
         <template scope="scope">
-          {{scope.row.call_time.time | dateFormat}}
+          <!-- {{scope.row.call_time.time | dateFormat}} -->
+          {{scope.row.call_time}}
         </template>
       </el-table-column>
       <el-table-column prop="duration" label="时长(秒)">

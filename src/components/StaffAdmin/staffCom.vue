@@ -33,7 +33,7 @@
       </el-table-column>
       <el-table-column prop="name" label="姓名">
       </el-table-column>
-      <el-table-column prop="duty" label="职务">
+      <el-table-column prop="duty" label="职务" >
       </el-table-column>
       <el-table-column prop="code" label="员工编号">
       </el-table-column>
@@ -512,7 +512,12 @@ export default {
       }).then(() => {
         this.$axios.get('staff_changeBinding.action?jsonData=' + JSON.stringify(this.changeBindDialogFrom)).then(response => {
           let resInfo = JSON.parse(response.data)
-          this.$message({ message: "换绑失败" + resInfo.result, type: 'error', });
+          if (typeof resInfo.result=='sting') {
+            this.$message({ message: "换绑失败" + resInfo.result, type: 'error', });
+            return;
+          }else {
+            this.$message({ message: "换绑成功", type: 'success', });
+          }
           this.queryStaff();
         }, response => {
           this.$message({ message: "换绑失败：" + response, type: 'error', });

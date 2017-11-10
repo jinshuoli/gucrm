@@ -18,7 +18,7 @@
         <ul>
           <li>总共 : {{userInfo.total}} &nbsp;&nbsp;&nbsp;&nbsp;使用 : {{userInfo.vtotal}} &nbsp;&nbsp;&nbsp;&nbsp; 空闲 : {{userInfo.itotal}}</li>
           <!-- <li>渠道 : {{userInfo.ctotal}}</li> -->
-          <li>外呼 : {{userInfo.ototal}}</li>
+          <!-- <li>外呼 : {{userInfo.ototal}}</li> -->
         </ul>
       </el-col>
     </el-row>
