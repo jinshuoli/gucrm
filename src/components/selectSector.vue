@@ -38,20 +38,20 @@ export default {
       })
     },
     // 节点被点击时触发
-    TreeClick(data) {
-      this.$emit("on-tree-key", data.value, data.setId)
-    },
-    // 加载子节点&树形菜单
-    loadNode(node, resolve) {
-      if (node.level > 0) {
-        this.$once("on-tree-key", (id, setId) => {
-          let ids = { id: id, setId: setId }
-          this.$axios.get('org_childNodesLoad.action?jsonData=' + JSON.stringify(ids)).then(response => {
-            return resolve(JSON.parse(response.data));
-          }, response => {})
-        })
-      }
-    },
+    // TreeClick(data) {
+    //   this.$emit("on-tree-key", data.value, data.setId)
+    // },
+    // // 加载子节点&树形菜单
+    // loadNode(node, resolve) {
+    //   if (node.level > 0) {
+    //     this.$once("on-tree-key", (id, setId) => {
+    //       let ids = { id: id, setId: setId }
+    //       this.$axios.get('org_childNodesLoad.action?jsonData=' + JSON.stringify(ids)).then(response => {
+    //         return resolve(JSON.parse(response.data));
+    //       }, response => {})
+    //     })
+    //   }
+    // },
     closeDialog() {
       this.$emit('on-close') // on-close 告诉父级关闭弹框
     },
