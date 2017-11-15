@@ -286,6 +286,7 @@ export default {
       EditStaffForm: {
         org: '全部',
         orgId: '',
+        companyId:"",
         code: '',
         power: 0,
         frozen: '',
@@ -362,7 +363,7 @@ export default {
         this.AddStaffForm.orgId = nodes[0].value;
       }else if (this.isSearchAddEditTree === 'edit') {       // 修改
         this.EditStaffForm.org = nodes[0].name;
-        this.EditStaffForm.orgId = nodes[0].value;
+        this.EditStaffForm.companyId = nodes[0].value;
       }
     },
     // 查询
@@ -436,7 +437,7 @@ export default {
     openEditStaff(i, row) {
       this.EditStaffDialog = true;
       this.EditStaffForm.org = row.org_name;
-      this.EditStaffForm.org_id = row.org_id;
+      this.EditStaffForm.companyId = row.companyId;
       this.EditStaffForm.code = row.code;
       this.EditStaffForm.power = row.data_permission;
       this.EditStaffForm.frozen = row.status;
@@ -460,10 +461,11 @@ export default {
         this.EditStaffDialog = false;
         console.log(response.data)
         try {
-          let returnInfo = JSON.parse(response.data)
-          this.$message({ message: returnInfo.message, type: returnInfo.type });
+          // let returnInfo = JSON.parse(response.data)
+          // this.$message({ message: returnInfo.message, type: returnInfo.type });
+          this.$message( JSON.parse(response.data));
         } catch (e) {
-          this.$message({ message: "修改失败：return data error", type: 'error', });
+          this.$message({ message: "修改失败！", type: 'error', });
         }
         this.queryStaff();
       }, response => {

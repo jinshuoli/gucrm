@@ -243,7 +243,12 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$axios.post("company_addCompany.action?jsonData=" + JSON.stringify(this.addCompanyForm)).then(response => {
-            this.$message({ message: "新增公司成功", type: 'success' });
+            try {
+              let returnInfo = JSON.parse(response.data)
+              this.$message({ message: returnInfo.message, type: returnInfo.type, });
+            } catch (e) {
+              this.$message({ message: "新增公司失败：return data error", type: 'error', });
+            }
             this.getCompanyTable();
             this.$refs[formName].resetFields();
           }, response => {
@@ -294,12 +299,16 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$axios.get("company_delete.action?id=" + row.id).then(response => {
-          this.$message({ message: "删除公司成功", type: 'success' });
+          try {
+            let returnInfo = JSON.parse(response.data)
+            this.$message({ message: returnInfo.message, type: returnInfo.type, });
+          } catch (e) {
+            this.$message({ message: "删除公司失败：return data error", type: 'error', });
+          }
           this.getCompanyTable();
         }, response => {
-          this.$message({ message: "删除公司失败：" + response, type: 'error' })
+          this.$message({ message: "删除公司失败：" + response, type: 'error', })//不是200都会提示
         })
-
       }).catch(() => {
         this.$message({ message: '已取消删除', type: 'info', });
       });
