@@ -292,20 +292,22 @@ export default {
       })
     },
     // 删除
-    clickDel(index, row) {
+    clickDel(i, row) {
       this.$confirm('您确定要将这个公司删除吗？', '删除公司', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         this.$axios.get("company_delete.action?id=" + row.id).then(response => {
-          try {
-            let returnInfo = JSON.parse(response.data)
-            this.$message({ message: returnInfo.message, type: returnInfo.type, });
-          } catch (e) {
-            this.$message({ message: "删除公司失败：return data error", type: 'error', });
-          }
+          this.$message({ message: "删除账号成功", type: 'success' });
           this.getCompanyTable();
+          // try {
+          //   let returnInfo = JSON.parse(response.data)
+          //   this.$message({ message: returnInfo.message, type: returnInfo.type, });
+          // } catch (e) {
+          //   this.$message({ message: "删除公司失败：return data error", type: 'error', });
+          // }
+          // this.getCompanyTable();
         }, response => {
           this.$message({ message: "删除公司失败：" + response, type: 'error', })//不是200都会提示
         })
