@@ -71,12 +71,12 @@
         </el-table-column>
         <el-table-column prop="acms" label="小号">
         </el-table-column>
-        <!-- <el-table-column prop="channel_name" label="渠道">
-        </el-table-column> -->
         <el-table-column prop="code" label="用户">
         </el-table-column>
         <el-table-column prop="name" label="姓名">
         </el-table-column>
+        <el-table-column prop="state_date" label="绑定时间">
+      </el-table-column>
         <!-- <el-table-column prop="bnum" label="呼转">
         </el-table-column>
         <el-table-column label="外呼">
@@ -226,8 +226,8 @@ export default {
         const { export_json_to_excel } = require('@/vendor/Export2Excel');　　　　　　　　
         // const tHeader = ["小号", "渠道", "用户", "姓名", "呼转", "外呼", "上线"];　　　　　　　　
         // const filterVal = ["acms", "channel_name", "code", "name", "bnum", "purpose", "state"];
-        const tHeader = ["小号",  "用户", "姓名"];　　　　　　　　
-        const filterVal = ["acms",  "code", "name"];
+        const tHeader = ["小号",  "用户", "姓名" , "绑定时间"];　　　　　　　　
+        const filterVal = ["acms",  "code", "name", "state_date"];
         const data = this.formatJson(filterVal, this.tableData);　　　　　　　　
         export_json_to_excel(tHeader, data, "员工管理-号码");
       })　　　　
